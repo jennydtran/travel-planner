@@ -1,0 +1,173 @@
+.hidden {
+  display: none !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 680px;
+  max-width: 900px;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+
+main {
+  height: 86.5vh;
+  padding: 0.5rem 0.75rem;
+}
+
+h2 {
+  font-family: 'Signika', Helvetica, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+h3 {
+  font-family: 'Signika', Helvetica, sans-serif;
+}
+
+p {
+  padding: 0.5rem 0;
+}
+
+span {
+  color: rgb(182, 182, 182);
+  font-size: 0.8rem;
+}
+
+
+hr {
+  border: 0;
+  clear:both;
+  display:block;
+  width: 96%;
+  background-color: rgb(219, 219, 219);
+  height: 0.5px;
+  margin: 0.5rem 0;
+}
+
+button {
+  background-color: #40B4A6;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.75));
+}
+
+.text-center {
+  color:#6BDCCE;
+}
+
+.message {
+  margin: 0;
+}
+
+.homeWelcome > p:nth-child(2) {
+  padding: 0;
+  margin-top: -0.5rem;
+}
+
+.nav {
+  max-width: 900px;
+  background-color: rgb(243, 243, 243);
+  height: 7vh;
+  padding: 0.45rem 0.75rem;
+  z-index: 1;
+}
+
+.navbar-brand.abs {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  text-align: center;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footer {
+  max-width: 900px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 6.5vh;
+  background-color: #40B4A6;
+  padding: 0 0.25rem;
+   z-index: 1;
+}
+
+.add {
+  background-color: white;
+  border-radius: 50%;
+}
+
+.icon {
+  color: black;
+  filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.75));
+}
+
+.relative {
+  position: relative;
+}
+
+.overlay {
+  height: 100%;
+  width:100%;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  background-color: rgba(0,0,0, 0.7);
+  transition: 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.trip-modal {
+  width: 85%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#tripForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#tripForm > input,
+#tripForm > label {
+  display: inline-block;
+  font-weight: 600;
+  width: 100%;
+  margin: 0.35rem 0;
+}
+
+#tripForm > input {
+  color: #6BDCCE;
+  line-height: 2.5rem;
+  border-radius: 5px;
+  border: 1px solid rgb(182, 182, 182);
+  margin-bottom: 1rem;
+}
+
+#tripForm > button {
+  align-self: center;
+}
+
+.tripsubmit {
+  margin-top: 1rem;
+}

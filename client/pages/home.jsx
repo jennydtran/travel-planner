@@ -150,6 +150,17 @@ class TripModal extends React.Component {
   }
 
   render() {
+    const today = new Date();
+    let month = today.getMonth() + 1;
+    let day = today.getDate() + 1;
+    const year = today.getFullYear();
+    if (month < 10) {
+      month = '0' + month.toString();
+    }
+    if (day < 10) {
+      day = '0' + day.toString();
+    }
+    const maxDate = `${year}-${month}-${day}`;
 
     if (!this.props.view) {
       return null;
@@ -164,9 +175,9 @@ class TripModal extends React.Component {
               <label htmlFor="tripDestination">Destination</label>
               <input type="text" id="tripDestination" name="tripDestination" onChange={this.handleChange} value={this.state.tripDestination} required></input>
               <label htmlFor="depatureDate">Depature Date</label>
-              <input type="date" id="departureDate" name="departureDate" min={Date.now()} onChange={this.handleChange} value={this.state.departureDate} required></input>
+              <input type="date" id="departureDate" name="departureDate" min={maxDate} onChange={this.handleChange} value={this.state.departureDate} required></input>
               <label htmlFor="returnDate">Return Date</label>
-              <input type="date" id="returnDate" name="returnDate" onChange={this.handleChange} value={this.state.returnDate} required></input>
+              <input type="date" id="returnDate" name="returnDate" min={maxDate} onChange={this.handleChange} value={this.state.returnDate} required></input>
               <button className="rounded-lg tripsubmit" type="submit" value="Submit">Add this trip</button>
             </form>
           </div>

@@ -1,0 +1,67 @@
+html,
+body {
+  min-height: 680px;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+main {
+  height: 80vh;
+  padding: 0.75rem;
+}
+
+h2,
+h3 {
+  font-family: 'Signika', Helvetica, sans-serif;
+  font-weight: 700;
+}
+
+hr {
+  background-color: rgb(219, 219, 219);
+  height: 0.5px;
+}
+
+button {
+  background-color: #40b4a6;
+  color: white;
+  font-weight: 600;
+  border: 0;
+  padding: 0.75rem 1.5rem;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.75));
+}
+
+input,
+label {
+  font-weight: 600;
+}
+
+.nav {
+  background-color: rgb(243, 243, 243);
+  height: 3.5rem;
+  z-index: 1;
+}
+
+.footer {
+  background-color: #40b4a6;
+  height: 3.25rem;
+  z-index: 1;
+}
+
+.icon {
+  color: black;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.75));
+}
+
+.overlay {
+  top: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: 0.5s;
+}
+
+.form-control:focus {
+  color: #40b4a6;
+}
+
+.light-teal {
+  color: #6bdcce;
+}

@@ -181,13 +181,13 @@ class TripModal extends React.Component {
             <h2 className="text-center">Add a trip</h2>
             <form id="tripForm" className="d-flex flex-column" onSubmit={this.handleSubmit}>
               <label htmlFor="tripName">Name of trip</label>
-              <input type="text" id="tripName" name="tripName" onChange={this.handleChange} value={this.state.tripName} required></input>
+              <input type="text" id="tripName" name="tripName" onChange={this.handleChange} value={this.state.tripName} required />
               <label htmlFor="tripDestination">Destination</label>
-              <input type="text" id="tripDestination" name="tripDestination" onChange={this.handleChange} value={this.state.tripDestination} required></input>
+              <input type="text" id="tripDestination" name="tripDestination" onChange={this.handleChange} value={this.state.tripDestination} required />
               <label htmlFor="depatureDate">Depature Date</label>
-              <input type="date" id="departureDate" name="departureDate" min={maxDate} onChange={this.handleChange} value={this.state.departureDate} required></input>
+              <input type="date" id="departureDate" name="departureDate" min={maxDate} onChange={this.handleChange} value={this.state.departureDate} required />
               <label htmlFor="returnDate">Return Date</label>
-              <input disabled={disabled} type="date" id="returnDate" name="returnDate" min={returnMaxDate} onChange={this.handleChange} value={this.state.returnDate} required></input>
+              <input disabled={disabled} type="date" id="returnDate" name="returnDate" min={returnMaxDate} onChange={this.handleChange} value={this.state.returnDate} required />
               <button className="rounded-lg my-3 align-self-center" type="submit" value="Submit">Add this trip</button>
             </form>
           </div>
@@ -197,10 +197,3 @@ class TripModal extends React.Component {
   }
 }
 
-// function TripEntries(props) {
-//   return (
-//     <div className="container">
-//       <h1>Your Trips</h1>
-//     </div>
-//   );
-// }

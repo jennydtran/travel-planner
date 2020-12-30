@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken'); // eslint-disable-line
-const ClientError = require('./client-error'); // eslint-disable-line
+const jwt = require('jsonwebtoken');
+const ClientError = require('./client-error');
 
 function authorizationMiddleware(req, res, next) {
   const token = req.headers['x-access-token'];

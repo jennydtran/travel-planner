@@ -163,10 +163,13 @@ class TripModal extends React.Component {
     const maxDate = `${year}-${month}-${day}`;
 
     let returnMaxDate;
+    let disabled;
     if (!this.state.departureDate) {
       returnMaxDate = maxDate;
+      disabled = true;
     } else {
       returnMaxDate = this.state.departureDate;
+      disabled = false;
     }
 
     if (!this.props.view) {
@@ -184,7 +187,7 @@ class TripModal extends React.Component {
               <label htmlFor="depatureDate">Depature Date</label>
               <input type="date" id="departureDate" name="departureDate" min={maxDate} onChange={this.handleChange} value={this.state.departureDate} required></input>
               <label htmlFor="returnDate">Return Date</label>
-              <input type="date" id="returnDate" name="returnDate" min={returnMaxDate} onChange={this.handleChange} value={this.state.returnDate} required></input>
+              <input disabled={disabled} type="date" id="returnDate" name="returnDate" min={returnMaxDate} onChange={this.handleChange} value={this.state.returnDate} required></input>
               <button className="rounded-lg tripsubmit" type="submit" value="Submit">Add this trip</button>
             </form>
           </div>

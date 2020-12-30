@@ -9,14 +9,16 @@ main {
   padding: 0.75rem;
 }
 
+h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: 'Signika', Helvetica, sans-serif;
   font-weight: 700;
 }
 
 hr {
-  background-color: rgb(219, 219, 219);
+  background-color: #dbdbdb;
   height: 0.5px;
 }
 

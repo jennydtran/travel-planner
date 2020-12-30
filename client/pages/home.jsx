@@ -59,9 +59,6 @@ function HomeBody(props) {
         <hr className="dmx-2 my-4 d-block border-0" />
       </div>
 
-      {/* <TripEntries /> */}
-
-      {/* if no entries... render below */}
       <div className="light-teal text-center"><h3>Looks like you don&#39;t<br />have any trips planned!</h3></div>
       <div className="light-teal text-center"><p>Let&#39;s start planning!<br />Click the <strong>ADD</strong> button to add a trip.</p></div>
     </main>
@@ -196,4 +193,3 @@ class TripModal extends React.Component {
     }
   }
 }
-

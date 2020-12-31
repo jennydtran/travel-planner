@@ -1,6 +1,7 @@
 html,
 body {
   min-height: 680px;
+  min-width: 375px;
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
@@ -9,14 +10,16 @@ main {
   padding: 0.75rem;
 }
 
+h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: 'Signika', Helvetica, sans-serif;
   font-weight: 700;
 }
 
 hr {
-  background-color: rgb(219, 219, 219);
+  background-color: #dbdbdb;
   height: 0.5px;
 }
 
@@ -32,6 +35,12 @@ button {
 input,
 label {
   font-weight: 600;
+}
+
+a:active,
+button:active {
+  transition-duration: 0.1s;
+  transform: scale(0.98);
 }
 
 .nav {

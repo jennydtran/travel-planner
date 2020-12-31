@@ -135,11 +135,11 @@ function TripEntry(trip) {
           <p className="text-muted small pt-1 ml-4 m-0">{`${month} ${year}`}</p>
         </div>
         <div className="d-flex align-items-center">
-          <a href="#">
+          <button className="bg-transparent p-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#dbdbdb" className="icon bi bi-dash" viewBox="0 0 16 16">
               <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
             </svg>
-          </a>
+          </button>
         </div>
       </div>
     </li>

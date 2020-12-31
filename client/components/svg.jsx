@@ -40,3 +40,20 @@ export function PlusIcon(props) {
     </svg>
   );
 }
+
+export function BackLeftIcon(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="#000000" className="bi bi-chevron-left" viewBox="0 0 16 16">
+      <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+    </svg>
+  );
+}
+
+export function CameraIcon(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="2.25rem" height="2.25rem" fill="#ffffff" className="icon bi bi-camera-fill" viewBox="0 0 16 16">
+      <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+      <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z" />
+    </svg>
+  );
+}

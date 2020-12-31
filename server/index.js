@@ -18,13 +18,33 @@ app.use(staticMiddleware);
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
 
-
 app.get('/api/trip', (req, res, next) => {
   const sql = `
     select *
       from "trip"
   `;
   db.query(sql)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
+app.get('/api/trip/:tripId', (req, res, next) => {
+  const tripId = parseInt(req.params.tripId, 10);
+  if (!tripId) {
+    throw new ClientError(400, 'tripId must be a positive integer');
+  }
+  const sql = `
+    select "tripId",
+           "name",
+           "destination",
+           "departureDate",
+           "returnDate",
+           "numberOfNights"
+      from "trip"
+     where "tripId" = $1
+  `;
+  const params = [tripId];
+  db.query(sql, params)
     .then(result => res.json(result.rows))
     .catch(err => next(err));
 });

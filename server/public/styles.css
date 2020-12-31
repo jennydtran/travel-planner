@@ -1,6 +1,7 @@
 html,
 body {
   min-height: 680px;
+  min-width: 375px;
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
@@ -34,6 +35,11 @@ button {
 input,
 label {
   font-weight: 600;
+}
+
+a:active {
+  transition-duration: 0.1s;
+  transform: scale(0.98);
 }
 
 .nav {

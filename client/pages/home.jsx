@@ -81,7 +81,7 @@ class HomeBody extends React.Component {
         </div>
 
         {this.props.tripEntries.length !== 0
-          ? <div className="container">
+          ? <div className="container-sm">
               <h1 className="text-center light-teal">Your Trips</h1>
               <TripEntries tripEntries={this.props.tripEntries}/>
             </div>
@@ -123,27 +123,31 @@ function TripEntry(trip) {
   const { name, date } = trip;
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const dateConvert = new Date(date);
-  console.log(dateConvert)
+  dateConvert.setDate(dateConvert.getDate() + 1);
+  let month = dateConvert.getMonth();
+  month = monthNames[month];
+  const year = dateConvert.getFullYear();
 
   return (
     <li>
-      <div className="trip-entry d-flex border rounded-lg shadow-sm py-4 px-4">
-        <div className="d-flex align-items-center shadow-sm rounded-lg mr-4 px-2 border">
-          <a>
+      <div className="trip-entry d-flex border rounded-lg shadow-sm py-4 px-4 mb-2">
+        <a href="#" className="d-flex align-items-center">
+          <div className="shadow-sm rounded-lg p-2 border">
             <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#FFAD0F" className="bi bi-pencil-square" viewBox="0 0 16 16">
               <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
               <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
             </svg>
-          </a>
-        </div>
+        </div></a>
         <div className="d-flex flex-column justify-content-center flex-grow-1">
-          <h4 className="m-0">{name}</h4>
-          <p className="text-muted m-0">{}</p>
+          <h4 className="ml-4 m-0">{name}</h4>
+          <p className="text-muted small pt-1 ml-4 m-0">{`${month} ${year}`}</p>
         </div>
         <div className="d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#dbdbdb" className="icon bi bi-dash" viewBox="0 0 16 16">
-            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-          </svg>
+          <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#dbdbdb" className="icon bi bi-dash" viewBox="0 0 16 16">
+              <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+            </svg>
+          </a>
         </div>
       </div>
     </li>
@@ -154,11 +158,11 @@ function BottomNav(props) {
   return (
     <footer className="container-xl footer d-flex justify-content-center align-items-center fixed-bottom px-1 w-100">
       <div className="text-center">
-        <div className="icon bg-white rounded-circle" onClick={props.onClick}>
+        <a href="#"><div className="icon bg-white rounded-circle" onClick={props.onClick}>
           <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
           </svg>
-        </div>
+        </div></a>
       </div>
     </footer>
   );

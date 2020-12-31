@@ -104,12 +104,27 @@ class HomeBody extends React.Component {
 function TripEntries(props) {
   return (
     <ul className="list-unstyled my-4">
-      <TripEntry />
+      {
+        props.tripEntries.map(trip => {
+          return (
+            <TripEntry
+              key={trip.tripId}
+              name={trip.name}
+              date={trip.departureDate}
+              />
+          );
+        })
+      }
     </ul>
   );
 }
 
-function TripEntry(props) {
+function TripEntry(trip) {
+  const { name, date } = trip;
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const dateConvert = new Date(date);
+  console.log(dateConvert)
+
   return (
     <li>
       <div className="trip-entry d-flex border rounded-lg shadow-sm py-4 px-4">
@@ -122,8 +137,8 @@ function TripEntry(props) {
           </a>
         </div>
         <div className="d-flex flex-column justify-content-center flex-grow-1">
-          <h4 className="m-0">Big Bear Trip</h4>
-          <p className="text-muted m-0">January 2021</p>
+          <h4 className="m-0">{name}</h4>
+          <p className="text-muted m-0">{}</p>
         </div>
         <div className="d-flex align-items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="#dbdbdb" className="icon bi bi-dash" viewBox="0 0 16 16">

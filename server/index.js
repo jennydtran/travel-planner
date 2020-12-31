@@ -18,63 +18,6 @@ app.use(staticMiddleware);
 const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
 
-app.post('/api/auth/sign-up', (req, res, next) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    throw new ClientError(400, 'username and password are required fields');
-  }
-  argon2
-    .hash(password)
-    .then(hashedPassword => {
-      const sql = `
-        insert into "users" ("username", "hashedPassword")
-        values ($1, $2)
-        returning "userId", "username"
-      `;
-      const params = [username, hashedPassword];
-      return db.query(sql, params);
-    })
-    .then(result => {
-      const [user] = result.rows;
-      res.status(201).json(user);
-    })
-    .catch(err => next(err));
-});
-
-app.post('/api/auth/sign-in', (req, res, next) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    throw new ClientError(401, 'invalid login');
-  }
-  const sql = `
-    select "userId",
-           "hashedPassword"
-      from "users"
-     where "username" = $1
-  `;
-  const params = [username];
-  db.query(sql, params)
-    .then(result => {
-      const [user] = result.rows;
-      if (!user) {
-        throw new ClientError(401, 'invalid login');
-      }
-      const { userId, hashedPassword } = user;
-      return argon2
-        .verify(hashedPassword, password)
-        .then(isMatching => {
-          if (!isMatching) {
-            throw new ClientError(401, 'invalid login');
-          }
-          const payload = { userId, username };
-          const token = jwt.sign(payload, process.env.TOKEN_SECRET);
-          res.json({ token, user: payload });
-        });
-    })
-    .catch(err => next(err));
-});
-
-app.use(authorizationMiddleware);
 
 app.get('/api/trip', (req, res, next) => {
   const sql = `
@@ -87,11 +30,11 @@ app.get('/api/trip', (req, res, next) => {
 });
 
 app.post('/api/trip', (req, res, next) => {
-  const { userId } = req.user;
   const { tripName, tripDestination, departureDate, returnDate, numberOfNights } = req.body;
   if (!tripName || !tripDestination || !departureDate || !returnDate || !numberOfNights) {
     throw new ClientError(400, 'One of the following fields are missing: name, destination, departureDate, returnDate, numberOfNights');
   }
+  const userId = 1; // for testing purposes
   const sql = `
     insert into "trip" ("userId", "name", "destination", "departureDate", "returnDate", "numberOfNights")
     values ($1, $2, $3, $4, $5, $6)

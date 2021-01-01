@@ -97,6 +97,7 @@ function TripEntries(props) {
           return (
             <TripEntry
               key={trip.tripId}
+              tripId={trip.tripId}
               name={trip.name}
               date={trip.departureDate}
               />
@@ -108,7 +109,7 @@ function TripEntries(props) {
 }
 
 function TripEntry(trip) {
-  const { name, date } = trip;
+  const { name, date, tripId } = trip;
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const dateConvert = new Date(date);
   dateConvert.setDate(dateConvert.getDate() + 1);
@@ -119,7 +120,7 @@ function TripEntry(trip) {
   return (
     <li>
       <div className="trip-entry d-flex border rounded-lg shadow-sm py-4 px-4 mb-2">
-        <a href="#" className="d-flex align-items-center">
+        <a href={`#trips?tripId=${tripId}`} className="d-flex align-items-center">
           <div className="shadow-sm rounded-lg p-2 border">
             <TripEditIcon />
           </div>

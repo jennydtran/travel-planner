@@ -39,28 +39,28 @@ app.get('/api/trip/:tripId', (req, res, next) => {
            "destination",
            "departureDate",
            "returnDate",
-           "numberOfNights"
+           "numberOfDays"
       from "trip"
      where "tripId" = $1
   `;
   const params = [tripId];
   db.query(sql, params)
-    .then(result => res.json(result.rows))
+    .then(result => res.json(result.rows[0]))
     .catch(err => next(err));
 });
 
 app.post('/api/trip', (req, res, next) => {
-  const { tripName, tripDestination, departureDate, returnDate, numberOfNights } = req.body;
-  if (!tripName || !tripDestination || !departureDate || !returnDate || !numberOfNights) {
-    throw new ClientError(400, 'One of the following fields are missing: name, destination, departureDate, returnDate, numberOfNights');
+  const { tripName, tripDestination, departureDate, returnDate, numberOfDays } = req.body;
+  if (!tripName || !tripDestination || !departureDate || !returnDate || !numberOfDays) {
+    throw new ClientError(400, 'One of the following fields are missing: name, destination, departureDate, returnDate, numberOfDays');
   }
   const userId = 1; // for testing purposes
   const sql = `
-    insert into "trip" ("userId", "name", "destination", "departureDate", "returnDate", "numberOfNights")
+    insert into "trip" ("userId", "name", "destination", "departureDate", "returnDate", "numberOfDays")
     values ($1, $2, $3, $4, $5, $6)
     returning *
   `;
-  const params = [userId, tripName, tripDestination, departureDate, returnDate, numberOfNights];
+  const params = [userId, tripName, tripDestination, departureDate, returnDate, numberOfDays];
   db.query(sql, params)
     .then(result => {
       const [tripDetail] = result.rows;

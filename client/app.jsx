@@ -7,7 +7,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      route: parseRoute(window.location.hash)
+      route: parseRoute(window.location.hash),
+      user: null
     };
   }
 
@@ -29,6 +30,7 @@ export default class App extends React.Component {
     }
     if (route.path === 'trips') {
       const tripId = route.params.get('tripId');
+      // this.getSingleTrip(tripId);
       return <TripSummary tripId={tripId} />;
     }
   }

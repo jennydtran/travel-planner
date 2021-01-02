@@ -1,13 +1,36 @@
 import React from 'react';
-import { ThreeDotNavIcon, BackLeftIcon, CameraIcon, ChecklistIcon, TravelerIcon, AirplaneIcon, MapIcon, ActivitiesIcon, PackingIcon, AccommodationIcon} from '../components/svg';
+import * as Icons from '../components/svg';
 
 export default class TripSummary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentTrip: null,
+      todoList: [],
+      travelersList: [],
+      transportationList: [],
+      accommodationList: [],
+      activitiesList: [],
+      placesList: [],
+      packingList: []
+    };
+  }
+
+  componentDidMount() {
+    fetch(`/api/trip/${this.props.tripId}`)
+      .then(response => response.json())
+      .then(trips => this.setState({
+        currentTrip: trips
+      }));
+  }
+
   render() {
+    if (!this.state.currentTrip) return null;
+    const { name } = this.state.currentTrip;
     return (
       <>
-        <TopNav />
-        <Body />
-
+        <TopNav name={name}/>
+        <Body trip={this.state.currentTrip}/>
       </>
     );
   }
@@ -19,15 +42,15 @@ function TopNav(props) {
       <div className="d-flex align-items-center">
         <a href="#">
           <button className="bg-transparent p-0 nav-link ">
-            <BackLeftIcon />
+            <Icons.BackLeftIcon />
           </button>
         </a>
         <div>
-          <p className="h5 m-0 mx-2 mt-1 text-grey">Big Bear</p>
+          <p className="h5 m-0 mx-2 mt-1 text-grey">{props.name}</p>
         </div>
       </div>
       <button className="bg-transparent p-0 nav-item">
-        <ThreeDotNavIcon />
+        <Icons.ThreeDotNavIcon />
       </button>
     </nav>
   );
@@ -37,10 +60,10 @@ function Body(props) {
   return (
     <main className="bg-gradient d-flex flex-column align-items-center px-4 pt-3">
       <div className="d-flex my-3">
-        <CameraIcon />
-        <h2 className="text-center text-white px-3">Snapshot</h2>
+        <Icons.CameraIcon />
+        <h2 className="text-center text-white px-3 m-0">Snapshot</h2>
       </div>
-      <Summary />
+      <Summary trip={props.trip}/>
       <ToDoReminder />
       <BottomNav />
     </main>
@@ -48,23 +71,41 @@ function Body(props) {
 }
 
 function Summary(props) {
+  const dateReformat = date => {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + 1);
+    let month = newDate.getMonth() + 1;
+    let day = newDate.getDate();
+    const year = newDate.getFullYear();
+    if (month < 10) {
+      month = '0' + month.toString();
+    }
+    if (day < 10) {
+      day = '0' + day.toString();
+    }
+    return `${month}-${day}-${year}`;
+  };
+
+  const depart = dateReformat(props.trip.departureDate);
+  const returnDate = dateReformat(props.trip.returnDate);
+
   return (
-    <div className="d-flex flex-column rounded-lg bg-white w-100 border p-4">
-      <div className="d-flex">
-        <div className="flex-fill"><p className="font-weight-bold">Destination</p></div>
-        <div className="flex-fill"><p className="light-teal">Big Bear, CA</p></div>
+    <div className="d-flex flex-column rounded-lg bg-white w-100 border py-3 px-4">
+      <div className="row row-cols-2">
+        <div className="col"><p className="font-weight-bold mb-2">Destination</p></div>
+        <div className="col"><p className="light-teal mb-2">{props.trip.destination}</p></div>
       </div>
-      <div className="d-flex justify-content-between">
-        <div className="flex-fill"><p className="font-weight-bold">Departure Date</p></div>
-        <div className="flex-fill"><p className="light-teal">01/01/1001</p></div>
+      <div className="row">
+        <div className="col"><p className="font-weight-bold mb-2">Departure Date</p></div>
+        <div className="col"><p className="light-teal mb-2">{depart}</p></div>
       </div>
-      <div className="d-flex justify-content-between">
-        <div className="flex-fill"><p className="font-weight-bold">Return Date</p></div>
-        <div className="flex-fill"><p className="light-teal">01/01/1001</p></div>
+      <div className="row">
+        <div className="col"><p className="font-weight-bold mb-2">Return Date</p></div>
+        <div className="col"><p className="light-teal mb-2">{returnDate}</p></div>
       </div>
-      <div className="d-flex justify-content-between">
-        <div className="flex-fill"><p className="font-weight-bold">Number of Days</p></div>
-        <div className="flex-fill"><p className="light-teal">5 days</p></div>
+      <div className="row">
+        <div className="col"><p className="font-weight-bold mb-2">Trip Duration</p></div>
+        <div className="col"><p className="light-teal mb-2">{props.trip.numberOfDays + ' days'}</p></div>
       </div>
     </div>
   );
@@ -72,16 +113,20 @@ function Summary(props) {
 
 function ToDoReminder(props) {
   return (
-    <div className="bg-white rounded-lg w-100 border p-4">
-      <p className="font-weight-bold">Before leaving on your trip:</p>
-      <div className="d-flex">
-        <div className="small light-teal">
-          <p>Looks like you don't have a checklist.</p>
-          <p>Click on the icon to start prepping<br />for your trip!</p>
+    <div className="bg-white rounded-lg w-100 border mt-3 py-3 px-4">
+      <div className="row justify-content-between w-100 m-0">
+        <div className="col-9 p-0">
+        <p className="font-weight-bold mb-2">Before leaving on your trip:</p>
+        { /* Conditional here. Implement in next feature. */
+          <>
+            <p className="small light-teal mb-1">Looks like you don&#39;t have a checklist.</p>
+            <p className="small light-teal m-0">Click on the icon to start prepping for your trip!</p>
+          </>
+        }
         </div>
-        <div>
+        <div className="col-2 d-flex justify-content-end align-items-center p-0">
           <button className="bg-white rounded-lg p-2">
-            <ChecklistIcon />
+            <Icons.ChecklistIcon />
           </button>
         </div>
       </div>
@@ -91,42 +136,42 @@ function ToDoReminder(props) {
 
 function BottomNav(props) {
   return (
-    <div className="d-flex flex-wrap">
-      <div >
+    <div className="row rol-cols-3 mt-3">
+      <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
-          <TravelerIcon />
+          <Icons.TravelerIcon />
         </button>
-        <p className="small">Travelers</p>
+        <p className="mt-1 small">Travelers</p>
       </div>
-      <div >
+      <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
-          <AirplaneIcon />
+          <Icons.AirplaneIcon />
         </button>
-        <p className="small">Transportation</p>
+        <p className="mt-1 small d-flex flex-column align-items-center">Transportation</p>
       </div>
-      <div >
+      <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
-          <AccommodationIcon />
+          <Icons.AccommodationIcon />
         </button>
-        <p className="small">Accommodation</p>
+        <p className="mt-1 small">Accommodation</p>
       </div>
-      <div >
+      <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
-          <ActivitiesIcon />
+          <Icons.ActivitiesIcon />
         </button>
-        <p className="small">Activities</p>
+        <p className="mt-1 small">Activities</p>
       </div>
-      <div >
+      <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
-          <MapIcon />
+          <Icons.MapIcon />
         </button>
-        <p className="small">Places</p>
+        <p className="mt-1 small">Places</p>
       </div>
-      <div >
+      <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
-          <PackingIcon />
+          <Icons.PackingIcon />
         </button>
-        <p className="small">Packing List</p>
+        <p className="mt-1 small">Packing List</p>
       </div>
     </div>
   );

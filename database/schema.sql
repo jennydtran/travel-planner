@@ -23,7 +23,7 @@ CREATE TABLE "trip" (
 	"destination" TEXT NOT NULL,
 	"departureDate" DATE NOT NULL,
 	"returnDate" DATE NOT NULL,
-	"numberOfNights" integer NOT NULL,
+	"numberOfDays" integer NOT NULL,
 	"tripId" serial NOT NULL,
 	CONSTRAINT "trip_pk" PRIMARY KEY ("tripId")
 ) WITH (

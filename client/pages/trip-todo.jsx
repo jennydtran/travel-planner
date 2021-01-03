@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from 'react-dom';
 import * as Icons from '../components/svg';
 
 export default class TripTodo extends React.Component {
@@ -42,7 +41,14 @@ function ToDoList(props) {
 
 function ToDoForm(props) {
   return (
-
+    <form className="form-inline">
+      <div className="col pl-0">
+        <input type="text" placeholder="Type a task item here" className="form-control form-control-lg" />
+      </div>
+      <div className="">
+        <button type="submit" className="rounded-lg">Add</button>
+      </div>
+    </form>
   );
 }
 

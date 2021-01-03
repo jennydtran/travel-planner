@@ -1,18 +1,12 @@
 import React from 'react';
 import * as Icons from '../components/svg';
+import dateReformat from '../components/date-reformat';
 
 export default class TripSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentTrip: null,
-      todoList: [],
-      travelersList: [],
-      transportationList: [],
-      accommodationList: [],
-      activitiesList: [],
-      placesList: [],
-      packingList: []
+      currentTrip: null
     };
   }
 
@@ -71,21 +65,6 @@ function Body(props) {
 }
 
 function Summary(props) {
-  const dateReformat = date => {
-    const newDate = new Date(date);
-    newDate.setDate(newDate.getDate() + 1);
-    let month = newDate.getMonth() + 1;
-    let day = newDate.getDate();
-    const year = newDate.getFullYear();
-    if (month < 10) {
-      month = '0' + month.toString();
-    }
-    if (day < 10) {
-      day = '0' + day.toString();
-    }
-    return `${month}-${day}-${year}`;
-  };
-
   const depart = dateReformat(props.trip.departureDate);
   const returnDate = dateReformat(props.trip.returnDate);
 

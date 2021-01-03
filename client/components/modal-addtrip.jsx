@@ -1,4 +1,5 @@
 import React from 'react';
+import dateReformat from './date-reformat';
 
 export default class TripModal extends React.Component {
   constructor(props) {
@@ -68,17 +69,7 @@ export default class TripModal extends React.Component {
   }
 
   render() {
-    const today = new Date();
-    let month = today.getMonth() + 1;
-    let day = today.getDate() + 1;
-    const year = today.getFullYear();
-    if (month < 10) {
-      month = '0' + month.toString();
-    }
-    if (day < 10) {
-      day = '0' + day.toString();
-    }
-    const maxDate = `${year}-${month}-${day}`;
+    const maxDate = dateReformat();
 
     let returnMaxDate;
     let disabled;

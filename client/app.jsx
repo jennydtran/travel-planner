@@ -30,7 +30,6 @@ export default class App extends React.Component {
     }
     if (route.path === 'trips') {
       const tripId = route.params.get('tripId');
-      // this.getSingleTrip(tripId);
       return <TripSummary tripId={tripId} />;
     }
   }

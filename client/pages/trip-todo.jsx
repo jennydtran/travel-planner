@@ -28,27 +28,13 @@ function HomeBody(props) {
       </div>
       <hr className="w-100 my-3 d-block border-0" />
       <ToDoList />
-      <ToDoForm />
     </main>
   );
 }
 
 function ToDoList(props) {
   return (
-    <div >List goes here</div>
-  );
-}
-
-function ToDoForm(props) {
-  return (
-    <form className="form-inline">
-      <div className="col pl-0">
-        <input type="text" placeholder="Type a task item here" className="form-control form-control-lg" />
-      </div>
-      <div className="">
-        <button type="submit" className="rounded-lg">Add</button>
-      </div>
-    </form>
+    <div />
   );
 }
 
@@ -72,14 +58,33 @@ function TopNav(props) {
   );
 }
 
+function ToDoForm(props) {
+  return (
+    <>
+      <hr className="w-100 my-3 d-block border-0"/>
+      <form className="form-inline pb-3 px-3 d-flex align-items-center">
+        <div className="col pl-0">
+          <input type="text" placeholder="Type a task item here" className="form-control form-control-lg" />
+        </div>
+        <div className="">
+          <button type="submit" value="Submit" className="rounded-lg">Add</button>
+        </div>
+      </form>
+    </>
+  );
+}
+
 function Footer(props) {
   return (
-    <footer className="container-xl footer bg-light d-flex justify-content-center align-items-center fixed-bottom px-1 w-100">
-      <div className="d-flex text-center">
-        <button className="icon bg-transparent p-1">
-          <Icons.ChevronUp />
-        </button>
-      </div>
-    </footer>
+    <div className="fixed-bottom">
+      <ToDoForm />
+      <footer className="container-xl footer bg-light d-flex justify-content-center align-items-center w-100">
+        <div className="d-flex text-center">
+          <button className="icon bg-transparent p-1">
+            <Icons.ChevronUp />
+          </button>
+        </div>
+      </footer>
+    </div>
   );
 }

@@ -49,6 +49,24 @@ app.get('/api/trip/:tripId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/triptodo/:tripId', (req, res, next) => {
+  const tripId = parseInt(req.params.tripId, 10);
+  if (!tripId) {
+    throw new ClientError(400, 'tripId must be a positive integer');
+  }
+  const sql = `
+    select "todoId",
+           "item",
+           "completed"
+      from "todo"
+     where "tripId" = $1
+  `;
+  const params = [tripId];
+  db.query(sql, params)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
 app.post('/api/trip', (req, res, next) => {
   const { tripName, tripDestination, departureDate, returnDate, numberOfDays } = req.body;
   if (!tripName || !tripDestination || !departureDate || !returnDate || !numberOfDays) {

@@ -16,6 +16,7 @@ export default class TripTodo extends React.Component {
 
   componentDidMount() {
     this.getSingleTrip();
+    this.getTodoList();
   }
 
   getSingleTrip() {
@@ -23,7 +24,17 @@ export default class TripTodo extends React.Component {
       .then(response => response.json())
       .then(trips => {
         this.setState({ currentTrip: trips });
-      });
+      })
+      .catch(err => console.error(err));
+  }
+
+  getTodoList() {
+    fetch(`/api/triptodo/${this.props.tripId}`)
+      .then(response => response.json())
+      .then(todoList => {
+        this.setState({ todos: todoList });
+      })
+      .catch(err => console.error(err));
   }
 
   handleChange(event) {
@@ -62,7 +73,7 @@ export default class TripTodo extends React.Component {
     return (
       <>
         <TopNav name={name} tripId={this.props.tripId}/>
-        <HomeBody />
+        <HomeBody todo={this.state.todos}/>
         <Footer item={this.state.item} onSubmit={addTodo} onChange={handleChange} />
       </>
     );
@@ -76,14 +87,46 @@ function HomeBody(props) {
         <h2 className="text-center my-3">To-Do Before Trip</h2>
       </div>
       <hr className="w-100 my-3 d-block border-0" />
-      <ToDoList />
+      <ToDoList todo={props.todo}/>
     </main>
   );
 }
 
 function ToDoList(props) {
   return (
-    <div />
+    <div>
+      <ul className="list-unstyled my-1 px-3">
+        {
+          props.todo.map(todo => {
+            return (
+              <ToDoItem
+                key={todo.todoId}
+                item={todo.item}
+                completed={todo.completed}
+              />
+            );
+          })
+        }
+      </ul>
+    </div>
+  );
+}
+
+function ToDoItem(props) {
+  return (
+    <li className="list-group-item border border-dark rounded-lg mb-2">
+      <div className="form-check d-flex align-items-center justify-content-between">
+        <input
+          type="checkbox" checked={props.completed} className="form-check-input" id={props.todoId}
+        />
+        <label className="m-0 ml-3 form-check-label">
+          {props.item}
+        </label>
+        <button className="bg-transparent p-0">
+          <Icons.DashDeleteIcon />
+        </button>
+      </div>
+    </li>
   );
 }
 

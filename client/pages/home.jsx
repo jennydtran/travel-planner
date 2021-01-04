@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Icons from '../components/svg';
-import TripModal from '../components/modal-addtrip';
+import TripModal from '../components/form-addtrip';
 
 export default class Home extends React.Component {
   constructor(props) {

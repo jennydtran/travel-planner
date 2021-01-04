@@ -1,20 +1,55 @@
 import React from 'react';
 import * as Icons from '../components/svg';
+import ToDoForm from '../components/form-todo';
 
 export default class TripTodo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: []
+      todos: [],
+      item: ''
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.addTodo = this.addTodo.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({
+      item: event.target.value
+    });
+  }
+
+  addTodo(event) {
+    event.preventDefault();
+    const newTodo = {
+      item: this.state.item,
+      completed: false
+    };
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTodo)
+    };
+    fetch(`/api/triptodo/${this.props.tripId}`, req)
+      .then(response => response.json())
+      .then(newTrip => {
+        const newTodosArray = this.state.todos.concat(newTrip);
+        this.setState({ todos: newTodosArray });
+        event.target.reset();
+      })
+      .catch(err => console.error(err));
+    this.setState({ item: '' });
   }
 
   render() {
+    const { handleChange, addTodo } = this;
     return (
       <>
-        <TopNav name={this.props.name} tripId={this.props.tripId}/>
+        <TopNav name={this.props.trip.name} tripId={this.props.tripId}/>
         <HomeBody />
-        <Footer />
+        <Footer item={this.state.item} onSubmit={addTodo} onChange={handleChange} />
       </>
     );
   }
@@ -58,26 +93,10 @@ function TopNav(props) {
   );
 }
 
-function ToDoForm(props) {
-  return (
-    <>
-      <hr className="w-100 my-3 d-block border-0"/>
-      <form className="form-inline pb-3 px-3 d-flex align-items-center">
-        <div className="col pl-0">
-          <input type="text" placeholder="Type a task item here" className="form-control form-control-lg" />
-        </div>
-        <div className="">
-          <button type="submit" value="Submit" className="rounded-lg">Add</button>
-        </div>
-      </form>
-    </>
-  );
-}
-
 function Footer(props) {
   return (
     <div className="fixed-bottom">
-      <ToDoForm />
+      <ToDoForm item={props.item} onChange={props.onChange} onSubmit={props.onSubmit}/>
       <footer className="container-xl footer bg-light d-flex justify-content-center align-items-center w-100">
         <div className="d-flex text-center">
           <button className="icon bg-transparent p-1">

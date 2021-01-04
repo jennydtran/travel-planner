@@ -72,7 +72,7 @@ app.post('/api/trip', (req, res, next) => {
 app.post('/api/triptodo/:tripId', (req, res, next) => {
   const tripId = parseInt(req.params.tripId, 10);
   const { item, completed } = req.body;
-  if (!item || !completed) {
+  if (!item || typeof completed !== 'boolean') {
     throw new ClientError(400, 'One of the following fields are missing: item, completed');
   }
   const sql = `

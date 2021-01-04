@@ -37,7 +37,7 @@ export default class App extends React.Component {
     }
     if (route.path === 'triptodo') {
       const tripId = route.params.get('tripId');
-      return <TripTodo tripId={tripId} />;
+      return <TripTodo tripId={tripId} trip={this.state.currentTrip} />;
     }
   }
 

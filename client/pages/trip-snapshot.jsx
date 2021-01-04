@@ -11,11 +11,14 @@ export default class TripSummary extends React.Component {
   }
 
   componentDidMount() {
+    this.getSingleTrip();
+  }
+
+  getSingleTrip() {
     fetch(`/api/trip/${this.props.tripId}`)
       .then(response => response.json())
       .then(trips => {
         this.setState({ currentTrip: trips });
-        this.props.appSetState({ currentTrip: trips });
       });
   }
 

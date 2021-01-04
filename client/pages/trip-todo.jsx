@@ -6,11 +6,24 @@ export default class TripTodo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentTrip: null,
       todos: [],
       item: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.addTodo = this.addTodo.bind(this);
+  }
+
+  componentDidMount() {
+    this.getSingleTrip();
+  }
+
+  getSingleTrip() {
+    fetch(`/api/trip/${this.props.tripId}`)
+      .then(response => response.json())
+      .then(trips => {
+        this.setState({ currentTrip: trips });
+      });
   }
 
   handleChange(event) {
@@ -44,10 +57,12 @@ export default class TripTodo extends React.Component {
   }
 
   render() {
+    if (!this.state.currentTrip) return null;
+    const { name } = this.state.currentTrip;
     const { handleChange, addTodo } = this;
     return (
       <>
-        <TopNav name={this.props.trip.name} tripId={this.props.tripId}/>
+        <TopNav name={name} tripId={this.props.tripId}/>
         <HomeBody />
         <Footer item={this.state.item} onSubmit={addTodo} onChange={handleChange} />
       </>

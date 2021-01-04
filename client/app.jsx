@@ -9,8 +9,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       route: parseRoute(window.location.hash),
-      user: null,
-      currentTrip: null
+      user: null
     };
     this.setState = this.setState.bind(this);
   }
@@ -33,11 +32,11 @@ export default class App extends React.Component {
     }
     if (route.path === 'tripsnapshot') {
       const tripId = route.params.get('tripId');
-      return <TripSummary tripId={tripId} appSetState={this.setState}/>;
+      return <TripSummary tripId={tripId} />;
     }
     if (route.path === 'triptodo') {
       const tripId = route.params.get('tripId');
-      return <TripTodo tripId={tripId} trip={this.state.currentTrip} />;
+      return <TripTodo tripId={tripId} />;
     }
   }
 

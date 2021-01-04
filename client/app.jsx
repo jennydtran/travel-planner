@@ -11,7 +11,6 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash),
       user: null
     };
-    this.setState = this.setState.bind(this);
   }
 
   componentDidMount() {

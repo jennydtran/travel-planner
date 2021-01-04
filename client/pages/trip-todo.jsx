@@ -49,11 +49,10 @@ export default class TripTodo extends React.Component {
       .then(response => response.json())
       .then(newTrip => {
         const newTodosArray = this.state.todos.concat(newTrip);
-        this.setState({ todos: newTodosArray });
+        this.setState({ todos: newTodosArray, item: '' });
         event.target.reset();
       })
       .catch(err => console.error(err));
-    this.setState({ item: '' });
   }
 
   render() {

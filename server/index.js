@@ -69,6 +69,26 @@ app.post('/api/trip', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/triptodo/:tripId', (req, res, next) => {
+  const tripId = parseInt(req.params.tripId, 10);
+  const { item, completed } = req.body;
+  if (!item || typeof completed !== 'boolean') {
+    throw new ClientError(400, 'One of the following fields are missing: item, completed');
+  }
+  const sql = `
+    insert into "todo" ("item", "completed", "tripId")
+    values ($1, $2, $3)
+    returning *
+  `;
+  const params = [item, completed, tripId];
+  db.query(sql, params)
+    .then(result => {
+      const [tripTodo] = result.rows;
+      res.status(201).json(tripTodo);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

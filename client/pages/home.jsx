@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Icons from '../components/svg';
-import TripModal from '../components/modal-addtrip';
+import TripModal from '../components/form-addtrip';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -121,7 +121,7 @@ function TripEntry(props) {
   return (
     <li>
       <div className="trip-entry d-flex border rounded-lg shadow-sm py-4 px-4 mb-2">
-        <a href={`#trips?tripId=${tripId}`} className="d-flex align-items-center">
+        <a href={`#tripsnapshot?tripId=${tripId}`} className="d-flex align-items-center">
           <div className="shadow-sm rounded-lg p-2 border">
             <Icons.TripEditIcon />
           </div>

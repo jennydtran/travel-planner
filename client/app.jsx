@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './pages/home';
-import TripSummary from './pages/trip';
+import TripSummary from './pages/trip-snapshot';
+import TripTodo from './pages/trip-todo';
 import parseRoute from './lib/parse-route';
 
 export default class App extends React.Component {
@@ -28,9 +29,13 @@ export default class App extends React.Component {
     if (route.path === '') {
       return <Home />;
     }
-    if (route.path === 'trips') {
+    if (route.path === 'tripsnapshot') {
       const tripId = route.params.get('tripId');
       return <TripSummary tripId={tripId} />;
+    }
+    if (route.path === 'triptodo') {
+      const tripId = route.params.get('tripId');
+      return <TripTodo tripId={tripId} />;
     }
   }
 

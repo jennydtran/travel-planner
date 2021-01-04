@@ -11,11 +11,15 @@ export default class TripSummary extends React.Component {
   }
 
   componentDidMount() {
+    this.getSingleTrip();
+  }
+
+  getSingleTrip() {
     fetch(`/api/trip/${this.props.tripId}`)
       .then(response => response.json())
-      .then(trips => this.setState({
-        currentTrip: trips
-      }));
+      .then(trips => {
+        this.setState({ currentTrip: trips });
+      });
   }
 
   render() {
@@ -58,7 +62,7 @@ function Body(props) {
         <h2 className="text-center text-white px-3 m-0">Snapshot</h2>
       </div>
       <Summary trip={props.trip}/>
-      <ToDoReminder />
+      <ToDoReminder trip={props.trip}/>
       <BottomNav />
     </main>
   );
@@ -104,9 +108,11 @@ function ToDoReminder(props) {
         }
         </div>
         <div className="col-2 d-flex justify-content-end align-items-center p-0">
-          <button className="bg-white rounded-lg p-2">
-            <Icons.ChecklistIcon />
-          </button>
+          <a href={`#triptodo?tripId=${props.trip.tripId}`}>
+            <button className="bg-white rounded-lg p-2">
+              <Icons.ChecklistIcon />
+            </button>
+          </a>
         </div>
       </div>
     </div>

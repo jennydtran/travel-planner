@@ -117,7 +117,7 @@ function ToDoItem(props) {
     <li className="list-group-item border border-dark rounded-lg mb-2">
       <div className="form-check d-flex align-items-center justify-content-between">
         <input
-          type="checkbox" checked={props.completed} className="form-check-input"
+          type="checkbox" checked={props.completed} className="form-check-input" id={props.todoId}
         />
         <label className="m-0 ml-3 form-check-label">
           {props.item}

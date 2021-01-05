@@ -123,3 +123,18 @@ export function ChevronUp(props) {
     </svg>
   );
 }
+
+export function Checkbox(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="#dddddd" className="bi bi-app" viewBox="0 0 16 16">
+      <path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h6zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z" />
+    </svg>
+  );
+}
+export function Checkmark(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="#40B4A6" className="bi bi-check2" viewBox="0 0 16 16">
+      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+    </svg>
+  );
+}

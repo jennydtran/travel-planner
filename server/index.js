@@ -60,6 +60,7 @@ app.get('/api/triptodo/:tripId', (req, res, next) => {
            "completed"
       from "todo"
      where "tripId" = $1
+  order by "todoId"
   `;
   const params = [tripId];
   db.query(sql, params)
@@ -90,7 +91,9 @@ app.post('/api/trip', (req, res, next) => {
 app.post('/api/triptodo/:tripId', (req, res, next) => {
   const tripId = parseInt(req.params.tripId, 10);
   const { item, completed } = req.body;
-  if (!item || typeof completed !== 'boolean') {
+  if (!tripId) {
+    throw new ClientError(400, 'tripId must be a positive integer');
+  } else if (!item || typeof completed !== 'boolean') {
     throw new ClientError(400, 'One of the following fields are missing: item, completed');
   }
   const sql = `
@@ -103,6 +106,36 @@ app.post('/api/triptodo/:tripId', (req, res, next) => {
     .then(result => {
       const [tripTodo] = result.rows;
       res.status(201).json(tripTodo);
+    })
+    .catch(err => next(err));
+});
+
+app.patch('/api/triptodo/:todoId', (req, res, next) => {
+  const todoId = parseInt(req.params.todoId, 10);
+  if (!Number.isInteger(todoId) || todoId < 1) {
+    res.status(400).json({
+      error: 'todoId must be a positive integer'
+    });
+    return;
+  }
+  const { completed } = req.body;
+  if (typeof completed !== 'boolean') {
+    res.status(400).json({
+      error: 'completed (boolean) is a required field'
+    });
+    return;
+  }
+  const sql = `
+    update "todo"
+       set "completed" = $1
+     where "todoId" = $2
+     returning *
+  `;
+  const params = [completed, todoId];
+  db.query(sql, params)
+    .then(result => {
+      const [todo] = result.rows;
+      res.status(200).json(todo);
     })
     .catch(err => next(err));
 });

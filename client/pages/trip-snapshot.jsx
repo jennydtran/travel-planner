@@ -7,22 +7,20 @@ export default class TripSummary extends React.Component {
     super(props);
     this.state = {
       currentTrip: null,
-      tripTodoList: [],
-      itemsCompleted: null
+      tripTodoList: []
     };
   }
 
   componentDidMount() {
     this.getSingleTrip();
     this.getTodoList();
-    this.getCompleted();
   }
 
   getSingleTrip() {
     fetch(`/api/trip/${this.props.tripId}`)
       .then(response => response.json())
-      .then(trips => {
-        this.setState({ currentTrip: trips });
+      .then(trip => {
+        this.setState({ currentTrip: trip });
       });
   }
 
@@ -35,15 +33,6 @@ export default class TripSummary extends React.Component {
       .catch(err => console.error(err));
   }
 
-  getCompleted() {
-    fetch(`/api/itemscompleted/${this.props.tripId}`)
-      .then(response => response.json())
-      .then(number => {
-        this.setState({ itemsCompleted: parseInt(number, 10) });
-      })
-      .catch(err => console.error(err));
-  }
-
   render() {
     if (!this.state.currentTrip) return null;
     const { name } = this.state.currentTrip;
@@ -51,7 +40,7 @@ export default class TripSummary extends React.Component {
     return (
       <>
         <TopNav name={name}/>
-        <Body trip={this.state.currentTrip} numberOfItems={todoLength} itemsCompleted={this.state.itemsCompleted} />
+        <Body trip={this.state.currentTrip} numberOfItems={todoLength} itemsCompleted={this.state.currentTrip.itemsCompleted} />
       </>
     );
   }

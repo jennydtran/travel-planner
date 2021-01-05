@@ -39,7 +39,11 @@ app.get('/api/trip/:tripId', (req, res, next) => {
            "destination",
            "departureDate",
            "returnDate",
-           "numberOfDays"
+           "numberOfDays",
+            (select count("todo"."completed") as "itemsCompleted"
+            from "todo"
+            where "tripId" = $1
+            and "completed" = 'true')
       from "trip"
      where "tripId" = $1
   `;
@@ -130,23 +134,6 @@ app.patch('/api/triptodo/:todoId', (req, res, next) => {
       const [todo] = result.rows;
       res.status(200).json(todo);
     })
-    .catch(err => next(err));
-});
-
-app.get('/api/itemscompleted/:tripId', (req, res, next) => {
-  const tripId = parseInt(req.params.tripId, 10);
-  if (!tripId) {
-    throw new ClientError(400, 'tripId must be a positive integer');
-  }
-  const sql = `
-    select count("completed") as "itemsCompleted"
-      from "todo"
-     where "tripId" = $1
-       and "completed" = 'true'
-  `;
-  const params = [tripId];
-  db.query(sql, params)
-    .then(result => res.json(result.rows[0].itemsCompleted))
     .catch(err => next(err));
 });
 

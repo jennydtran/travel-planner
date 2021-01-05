@@ -12,6 +12,7 @@ export default class TripTodo extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.addTodo = this.addTodo.bind(this);
+    this.updateCompleted = this.updateCompleted.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +36,19 @@ export default class TripTodo extends React.Component {
         this.setState({ todos: todoList });
       })
       .catch(err => console.error(err));
+  }
+
+  updateCompleted(todoId) {
+    const newTodos = Array.from(this.state.todos);
+    let index;
+    for (let i = 0; i < newTodos.length; i++) {
+      if (newTodos[i].todoId === todoId) {
+        index = i;
+      }
+    }
+    const completedStatus = newTodos[index].completed;
+    newTodos[index].completed = !completedStatus;
+    this.setState({ todos: newTodos });
   }
 
   handleChange(event) {
@@ -73,7 +87,7 @@ export default class TripTodo extends React.Component {
     return (
       <>
         <TopNav name={name} tripId={this.props.tripId} />
-        <HomeBody todo={this.state.todos} />
+        <HomeBody todo={this.state.todos} updateCompleted={this.updateCompleted}/>
         <Footer item={this.state.item} onSubmit={addTodo} onChange={handleChange} />
       </>
     );
@@ -87,7 +101,7 @@ function HomeBody(props) {
         <h2 className="text-center my-3">To-Do Before Trip</h2>
       </div>
       <hr className="w-100 my-3 d-block border-0" />
-      <ToDoList todo={props.todo} />
+      <ToDoList todo={props.todo} updateCompleted={props.updateCompleted}/>
     </main>
   );
 }
@@ -101,9 +115,8 @@ function ToDoList(props) {
             return (
               <ToDoItem
                 key={todo.todoId}
-                todoId={todo.todoId}
-                item={todo.item}
-                completed={todo.completed}
+                todo={todo}
+                updateCompleted={props.updateCompleted}
               />
             );
           })
@@ -114,7 +127,7 @@ function ToDoList(props) {
 }
 
 function ToDoItem(props) {
-  const [completeStatus, setCompleted] = useState(props.completed);
+  const [completeStatus, setCompleted] = useState(props.todo.completed);
 
   useEffect(() => {
     const newStatus = { completed: completeStatus };
@@ -124,7 +137,7 @@ function ToDoItem(props) {
       body: JSON.stringify(newStatus)
     };
 
-    fetch(`/api/triptodo/${props.todoId}`, requestOptions)
+    fetch(`/api/triptodo/${props.todo.todoId}`, requestOptions)
       .then(response => response.json())
       .catch(err => console.error(err));
   });
@@ -134,11 +147,11 @@ function ToDoItem(props) {
       <div className="d-flex align-items-center justify-content-between">
         <div>
           {completeStatus
-            ? <button onClick={() => setCompleted(!completeStatus)} className="bg-transparent p-0"><Icons.Checkmark /></button>
-            : <button onClick={() => setCompleted(!completeStatus)} className="bg-transparent p-0"><Icons.Checkbox /></button>
+            ? <button onClick={() => { setCompleted(!completeStatus); props.updateCompleted(props.todo.todoId); }} className="bg-transparent p-0"><Icons.Checkmark /></button>
+            : <button onClick={() => { setCompleted(!completeStatus); props.updateCompleted(props.todo.todoId); }} className="bg-transparent p-0"><Icons.Checkbox /></button>
           }
           <label className="m-0 ml-3 form-check-label">
-            {props.item}
+            {props.todo.item}
           </label>
         </div>
         <button className="bg-transparent p-0">

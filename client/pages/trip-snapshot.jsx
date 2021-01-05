@@ -47,10 +47,11 @@ export default class TripSummary extends React.Component {
   render() {
     if (!this.state.currentTrip) return null;
     const { name } = this.state.currentTrip;
+    const todoLength = this.state.tripTodoList.length;
     return (
       <>
         <TopNav name={name}/>
-        <Body trip={this.state.currentTrip}/>
+        <Body trip={this.state.currentTrip} numberOfItems={todoLength} itemsCompleted={this.state.itemsCompleted} />
       </>
     );
   }
@@ -84,7 +85,7 @@ function Body(props) {
         <h2 className="text-center text-white px-3 m-0">Snapshot</h2>
       </div>
       <Summary trip={props.trip}/>
-      <ToDoReminder trip={props.trip}/>
+      <ToDoReminder trip={props.trip} numberOfItems={props.numberOfItems} itemsCompleted={props.itemsCompleted} />
       <BottomNav />
     </main>
   );
@@ -117,17 +118,28 @@ function Summary(props) {
 }
 
 function ToDoReminder(props) {
+  const { numberOfItems, itemsCompleted } = props;
+
   return (
     <div className="bg-white rounded-lg w-100 border mt-3 py-3 px-4">
       <div className="row justify-content-between w-100 m-0">
         <div className="col-9 p-0">
-        <p className="font-weight-bold mb-2">Before leaving on your trip:</p>
-        { /* Conditional here. Implement in next feature. */
-          <>
-            <p className="small light-teal mb-1">Looks like you don&#39;t have a checklist.</p>
-            <p className="small light-teal m-0">Click on the icon to start prepping for your trip!</p>
-          </>
-        }
+          <p className="font-weight-bold mb-2">Before leaving on your trip:</p>
+          {numberOfItems === 0
+            ? <>
+              <p className="small light-teal mb-1">Looks like you don&#39;t have a checklist.</p>
+              <p className="small light-teal m-0">Click on the icon to start prepping for your trip!</p>
+            </>
+            : itemsCompleted === numberOfItems
+              ? <>
+                <p className="small yellow mt-3">{itemsCompleted} out of {numberOfItems} completed! </p>
+                <p className="small m-0">Preparations completed!</p>
+              </>
+              : <>
+                <p className="small yellow mt-3">{itemsCompleted} out of {numberOfItems} completed! </p>
+                <p className="small m-0">Continue prepping for your trip!</p>
+              </>
+          }
         </div>
         <div className="col-2 d-flex justify-content-end align-items-center p-0">
           <a href={`#triptodo?tripId=${props.trip.tripId}`}>
@@ -148,37 +160,37 @@ function BottomNav(props) {
         <button className="bg-white rounded-lg p-3">
           <Icons.TravelerIcon />
         </button>
-        <p className="mt-1 small">Travelers</p>
+        <p className="mt-2 small">Travelers</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
           <Icons.AirplaneIcon />
         </button>
-        <p className="mt-1 small d-flex flex-column align-items-center">Transportation</p>
+        <p className="mt-2 small d-flex flex-column align-items-center">Transportation</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
           <Icons.AccommodationIcon />
         </button>
-        <p className="mt-1 small">Accommodation</p>
+        <p className="mt-2 small">Accommodation</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
           <Icons.ActivitiesIcon />
         </button>
-        <p className="mt-1 small">Activities</p>
+        <p className="mt-2 small">Activities</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
           <Icons.MapIcon />
         </button>
-        <p className="mt-1 small">Places</p>
+        <p className="mt-2 small">Places</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
         <button className="bg-white rounded-lg p-3">
           <Icons.PackingIcon />
         </button>
-        <p className="mt-1 small">Packing List</p>
+        <p className="mt-2 small">Packing List</p>
       </div>
     </div>
   );

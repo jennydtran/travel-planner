@@ -115,13 +115,16 @@ function ToDoList(props) {
 function ToDoItem(props) {
   return (
     <li className="list-group-item border border-dark rounded-lg mb-2">
-      <div className="form-check d-flex align-items-center justify-content-between">
-        <input
-          type="checkbox" checked={props.completed} className="form-check-input" id={props.todoId}
-        />
-        <label className="m-0 ml-3 form-check-label">
-          {props.item}
-        </label>
+      <div className="d-flex align-items-center justify-content-between">
+        <div>
+          {props.completed
+            ? <button className="bg-transparent p-0"><Icons.Checkmark /></button>
+            : <button className="bg-transparent p-0"><Icons.Checkbox /></button>
+          }
+          <label className="m-0 ml-3 form-check-label">
+            {props.item}
+          </label>
+        </div>
         <button className="bg-transparent p-0">
           <Icons.DashDeleteIcon />
         </button>

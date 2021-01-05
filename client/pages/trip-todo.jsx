@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Icons from '../components/svg';
 import ToDoForm from '../components/form-todo';
 
@@ -72,8 +72,8 @@ export default class TripTodo extends React.Component {
     const { handleChange, addTodo } = this;
     return (
       <>
-        <TopNav name={name} tripId={this.props.tripId}/>
-        <HomeBody todo={this.state.todos}/>
+        <TopNav name={name} tripId={this.props.tripId} />
+        <HomeBody todo={this.state.todos} />
         <Footer item={this.state.item} onSubmit={addTodo} onChange={handleChange} />
       </>
     );
@@ -87,7 +87,7 @@ function HomeBody(props) {
         <h2 className="text-center my-3">To-Do Before Trip</h2>
       </div>
       <hr className="w-100 my-3 d-block border-0" />
-      <ToDoList todo={props.todo}/>
+      <ToDoList todo={props.todo} />
     </main>
   );
 }
@@ -101,6 +101,7 @@ function ToDoList(props) {
             return (
               <ToDoItem
                 key={todo.todoId}
+                todoId={todo.todoId}
                 item={todo.item}
                 completed={todo.completed}
               />
@@ -113,13 +114,28 @@ function ToDoList(props) {
 }
 
 function ToDoItem(props) {
+  const [completeStatus, setCompleted] = useState(props.completed);
+
+  useEffect(() => {
+    const newStatus = { completed: completeStatus };
+    const requestOptions = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newStatus)
+    };
+
+    fetch(`/api/triptodo/${props.todoId}`, requestOptions)
+      .then(response => response.json())
+      .catch(err => console.error(err));
+  });
+
   return (
     <li className="list-group-item border border-dark rounded-lg mb-2">
       <div className="d-flex align-items-center justify-content-between">
         <div>
-          {props.completed
-            ? <button className="bg-transparent p-0"><Icons.Checkmark /></button>
-            : <button className="bg-transparent p-0"><Icons.Checkbox /></button>
+          {completeStatus
+            ? <button onClick={() => setCompleted(!completeStatus)} className="bg-transparent p-0"><Icons.Checkmark /></button>
+            : <button onClick={() => setCompleted(!completeStatus)} className="bg-transparent p-0"><Icons.Checkbox /></button>
           }
           <label className="m-0 ml-3 form-check-label">
             {props.item}

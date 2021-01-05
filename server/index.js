@@ -39,7 +39,11 @@ app.get('/api/trip/:tripId', (req, res, next) => {
            "destination",
            "departureDate",
            "returnDate",
-           "numberOfDays"
+           "numberOfDays",
+            (select count("todo"."completed") as "itemsCompleted"
+            from "todo"
+            where "tripId" = $1
+            and "completed" = 'true')
       from "trip"
      where "tripId" = $1
   `;

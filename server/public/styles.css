@@ -80,6 +80,10 @@ button:active {
   color: #40b4a6;
 }
 
+.yellow {
+  color: #ffad0f;
+}
+
 .bg-gradient {
   background: linear-gradient(180deg, #6bdcce 0%, rgba(107, 220, 206, 0) 49.15%);
 }

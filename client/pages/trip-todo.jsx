@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import * as Icons from '../components/svg';
 import ToDoForm from '../components/form-todo';
 
@@ -38,17 +38,30 @@ export default class TripTodo extends React.Component {
       .catch(err => console.error(err));
   }
 
-  updateCompleted(todoId) {
-    const newTodos = Array.from(this.state.todos);
+  updateCompleted(todoId, status) {
+    const newTodos = [];
+    for (let i = 0; i < this.state.todos.length; i++) {
+      const obj = Object.assign({}, this.state.todos[i]);
+      newTodos.push(obj);
+    }
     let index;
     for (let i = 0; i < newTodos.length; i++) {
       if (newTodos[i].todoId === todoId) {
         index = i;
       }
     }
-    const completedStatus = newTodos[index].completed;
-    newTodos[index].completed = !completedStatus;
+
+    newTodos[index].completed = status.completed;
     this.setState({ todos: newTodos });
+
+    const requestOptions = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(status)
+    };
+    fetch(`/api/triptodo/${todoId}`, requestOptions)
+      .then(response => response.json())
+      .catch(err => console.error(err));
   }
 
   handleChange(event) {
@@ -126,40 +139,41 @@ function ToDoList(props) {
   );
 }
 
-function ToDoItem(props) {
-  const [completeStatus, setCompleted] = useState(props.todo.completed);
-
-  useEffect(() => {
-    const newStatus = { completed: completeStatus };
-    const requestOptions = {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newStatus)
+class ToDoItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      completedStatus: props.todo.completed
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-    fetch(`/api/triptodo/${props.todo.todoId}`, requestOptions)
-      .then(response => response.json())
-      .catch(err => console.error(err));
-  });
+  handleClick() {
+    const completed = this.state.completedStatus;
+    const newStatus = { completed: !completed };
+    this.setState({ completedStatus: !completed }, this.props.updateCompleted(this.props.todo.todoId, newStatus));
+  }
 
-  return (
-    <li className="list-group-item border border-dark rounded-lg mb-2">
-      <div className="d-flex align-items-center justify-content-between">
-        <div>
-          {completeStatus
-            ? <button onClick={() => { setCompleted(!completeStatus); props.updateCompleted(props.todo.todoId); }} className="bg-transparent p-0"><Icons.Checkmark /></button>
-            : <button onClick={() => { setCompleted(!completeStatus); props.updateCompleted(props.todo.todoId); }} className="bg-transparent p-0"><Icons.Checkbox /></button>
-          }
-          <label className="m-0 ml-3 form-check-label">
-            {props.todo.item}
-          </label>
+  render() {
+    return (
+      <li className="list-group-item border border-dark rounded-lg mb-2">
+        <div className="d-flex align-items-center justify-content-between">
+          <div>
+            {this.state.completedStatus
+              ? <button onClick={this.handleClick} className="bg-transparent p-0"><Icons.Checkmark /></button>
+              : <button onClick={this.handleClick} className="bg-transparent p-0"><Icons.Checkbox /></button>
+            }
+            <label className="m-0 ml-3 form-check-label">
+              {this.props.todo.item}
+            </label>
+          </div>
+          <button className="bg-transparent p-0">
+            <Icons.DashDeleteIcon />
+          </button>
         </div>
-        <button className="bg-transparent p-0">
-          <Icons.DashDeleteIcon />
-        </button>
-      </div>
-    </li>
-  );
+      </li>
+    );
+  }
 }
 
 function TopNav(props) {

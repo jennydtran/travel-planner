@@ -112,18 +112,11 @@ app.post('/api/triptodo/:tripId', (req, res, next) => {
 
 app.patch('/api/triptodo/:todoId', (req, res, next) => {
   const todoId = parseInt(req.params.todoId, 10);
-  if (!Number.isInteger(todoId) || todoId < 1) {
-    res.status(400).json({
-      error: 'todoId must be a positive integer'
-    });
-    return;
-  }
   const { completed } = req.body;
-  if (typeof completed !== 'boolean') {
-    res.status(400).json({
-      error: 'completed (boolean) is a required field'
-    });
-    return;
+  if (!Number.isInteger(todoId) || todoId < 1) {
+    throw new ClientError(400, 'todoId must be a positive integer');
+  } else if (typeof completed !== 'boolean') {
+    throw new ClientError(400, 'completed (boolean) is a required field');
   }
   const sql = `
     update "todo"

@@ -12,6 +12,7 @@ export default class TripSummary extends React.Component {
 
   componentDidMount() {
     this.getSingleTrip();
+    this.getTodoList();
   }
 
   getSingleTrip() {
@@ -20,6 +21,15 @@ export default class TripSummary extends React.Component {
       .then(trips => {
         this.setState({ currentTrip: trips });
       });
+  }
+
+  getTodoList() {
+    fetch(`/api/triptodo/${this.props.tripId}`)
+      .then(response => response.json())
+      .then(todoList => {
+        this.setState({ tripTodoList: todoList });
+      })
+      .catch(err => console.error(err));
   }
 
   render() {

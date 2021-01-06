@@ -68,6 +68,10 @@ button:active {
   transition: 0.5s;
 }
 
+.form-control {
+  border-color: #6bdcce;
+}
+
 .form-control:focus {
   color: #40b4a6;
 }
@@ -90,4 +94,5 @@ button:active {
 
 .text-grey {
   color: #979797;
+  font-weight: 400;
 }

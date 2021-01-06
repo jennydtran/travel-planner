@@ -72,6 +72,26 @@ app.get('/api/triptodo/:tripId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/travelers/:tripId', (req, res, next) => {
+  const tripId = parseInt(req.params.tripId, 10);
+  if (!tripId) {
+    throw new ClientError(400, 'tripId must be a positive integer');
+  }
+  const sql = `
+    select "travelerId",
+           "name",
+           "going",
+           "notes"
+      from "travelers"
+     where "tripId" = $1
+  order by "travelerId"
+  `;
+  const params = [tripId];
+  db.query(sql, params)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
 app.post('/api/trip', (req, res, next) => {
   const { tripName, tripDestination, departureDate, returnDate, numberOfDays } = req.body;
   if (!tripName || !tripDestination || !departureDate || !returnDate || !numberOfDays) {
@@ -110,6 +130,28 @@ app.post('/api/triptodo/:tripId', (req, res, next) => {
     .then(result => {
       const [tripTodo] = result.rows;
       res.status(201).json(tripTodo);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/travelers/:tripId', (req, res, next) => {
+  const tripId = parseInt(req.params.tripId, 10);
+  const { name, going, notes } = req.body;
+  if (!tripId) {
+    throw new ClientError(400, 'tripId must be a positive integer');
+  } else if (!name || !going) {
+    throw new ClientError(400, 'One of the following fields are missing: name, going ');
+  }
+  const sql = `
+    insert into "travelers" ("name", "going", "notes", "tripId")
+    values ($1, $2, $3, $4)
+    returning *
+  `;
+  const params = [name, going, notes, tripId];
+  db.query(sql, params)
+    .then(result => {
+      const [traveler] = result.rows;
+      res.status(201).json(traveler);
     })
     .catch(err => next(err));
 });

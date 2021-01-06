@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Icons from '../components/svg';
 import ToDoForm from '../components/form-todo';
+import { TopNav } from '../components/navigation';
 
 export default class TripTodo extends React.Component {
   constructor(props) {
@@ -100,14 +101,14 @@ export default class TripTodo extends React.Component {
     return (
       <>
         <TopNav name={name} tripId={this.props.tripId} />
-        <HomeBody todo={this.state.todos} updateCompleted={this.updateCompleted}/>
+        <Body todo={this.state.todos} updateCompleted={this.updateCompleted}/>
         <Footer item={this.state.item} onSubmit={addTodo} onChange={handleChange} />
       </>
     );
   }
 }
 
-function HomeBody(props) {
+function Body(props) {
   return (
     <main className="d-flex flex-column pt-3">
       <div className="container-sm">
@@ -176,29 +177,9 @@ class ToDoItem extends React.Component {
   }
 }
 
-function TopNav(props) {
-  return (
-    <nav className="nav navbar-light fixed-top align-items-center justify-content-between px-2">
-      <div className="d-flex align-items-center">
-        <a href={`#tripsnapshot?tripId=${props.tripId}`}>
-          <button className="bg-transparent p-0 nav-link ">
-            <Icons.BackLeftIcon />
-          </button>
-        </a>
-        <div>
-          <p className="h5 m-0 mx-2 mt-1 text-grey">{props.name}</p>
-        </div>
-      </div>
-      <button className="bg-transparent p-0 nav-item">
-        <Icons.ThreeDotNavIcon />
-      </button>
-    </nav>
-  );
-}
-
 function Footer(props) {
   return (
-    <div className="fixed-bottom">
+    <div className="fixed-bottom bg-white">
       <ToDoForm item={props.item} onChange={props.onChange} onSubmit={props.onSubmit}/>
       <footer className="container-xl footer bg-light d-flex justify-content-center align-items-center w-100">
         <div className="d-flex text-center">

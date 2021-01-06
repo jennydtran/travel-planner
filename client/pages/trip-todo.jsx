@@ -101,14 +101,14 @@ export default class TripTodo extends React.Component {
     return (
       <>
         <TopNav name={name} tripId={this.props.tripId} />
-        <HomeBody todo={this.state.todos} updateCompleted={this.updateCompleted}/>
+        <Body todo={this.state.todos} updateCompleted={this.updateCompleted}/>
         <Footer item={this.state.item} onSubmit={addTodo} onChange={handleChange} />
       </>
     );
   }
 }
 
-function HomeBody(props) {
+function Body(props) {
   return (
     <main className="d-flex flex-column pt-3">
       <div className="container-sm">

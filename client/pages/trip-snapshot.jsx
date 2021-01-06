@@ -75,7 +75,7 @@ function Body(props) {
       </div>
       <Summary trip={props.trip}/>
       <ToDoReminder trip={props.trip} numberOfItems={props.numberOfItems} itemsCompleted={props.itemsCompleted} />
-      <BottomNav />
+      <BottomNav trip={props.trip}/>
     </main>
   );
 }
@@ -146,9 +146,9 @@ function BottomNav(props) {
   return (
     <div className="row rol-cols-3 mt-3">
       <div className="col d-flex flex-column align-items-center">
-        <button className="bg-white rounded-lg p-3">
+        <a href={`#travelers?tripId=${props.trip.tripId}`}><button className="bg-white rounded-lg p-3">
           <Icons.TravelerIcon />
-        </button>
+        </button></a>
         <p className="mt-2 small">Travelers</p>
       </div>
       <div className="col d-flex flex-column align-items-center">

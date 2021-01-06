@@ -46,8 +46,9 @@ export default class TripTravelers extends React.Component {
         <TopNav name={name} tripId={this.props.tripId} />
         <Body />
         <Footer />
-        { travelers.length === 0 &&
-          <AddTraveler view={modalView} setState={this.setState}/>
+        { travelers.length === 0 || this.state.modalView === true
+          ? <AddTraveler view={modalView} tripId={this.props.tripId} travelers={travelers} TravelerSetState={this.setState}/>
+          : null
         }
       </>
     );

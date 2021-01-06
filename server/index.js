@@ -139,8 +139,8 @@ app.post('/api/travelers/:tripId', (req, res, next) => {
   const { name, going, notes } = req.body;
   if (!tripId) {
     throw new ClientError(400, 'tripId must be a positive integer');
-  } else if (!name || !going || !notes) {
-    throw new ClientError(400, 'One of the following fields are missing: name, going, notes');
+  } else if (!name || !going) {
+    throw new ClientError(400, 'One of the following fields are missing: name, going ');
   }
   const sql = `
     insert into "travelers" ("name", "going", "notes", "tripId")

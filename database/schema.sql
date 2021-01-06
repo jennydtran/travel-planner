@@ -48,7 +48,7 @@ CREATE TABLE "travelers" (
 	"travelerId" serial NOT NULL,
 	"name" TEXT NOT NULL,
 	"going" TEXT NOT NULL,
-	"notes" TEXT NOT NULL,
+	"notes" TEXT NULL,
 	"tripId" integer NOT NULL,
 	CONSTRAINT "travelers_pk" PRIMARY KEY ("travelerId")
 ) WITH (

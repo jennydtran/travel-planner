@@ -13,6 +13,8 @@ export default class TripTravelers extends React.Component {
     };
     this.setState = this.setState.bind(this);
     this.handleClickAddTraveler = this.handleClickAddTraveler.bind(this);
+    this.handleTraveler = this.handleTraveler.bind(this);
+    this.handleClickOff = this.handleClickOff.bind(this);
   }
 
   componentDidMount() {
@@ -44,13 +46,41 @@ export default class TripTravelers extends React.Component {
     });
   }
 
+  handleClickOff() {
+    this.setState({
+      modalView: false
+    });
+  }
+
+  handleTraveler(travelerInfo) {
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(travelerInfo)
+    };
+    fetch(`/api/travelers/${this.props.tripId}`, req)
+      .then(response => response.json())
+      .then(newTrip => {
+        const newTravelers = this.state.travelers.concat(newTrip);
+        this.setState({ travelers: newTravelers });
+      })
+      .catch(err => console.error(err));
+
+    this.setState({
+      modalView: false
+    });
+  }
+
   render() {
     if (!this.state.currentTrip) return null;
+    const { handleClickOff, handleTraveler } = this;
     const { name } = this.state.currentTrip;
     const { modalView, travelers } = this.state;
     const renderModal = () => {
       if ((modalView === null && travelers.length === 0) || modalView) {
-        return <AddTraveler view={modalView} tripId={this.props.tripId} travelers={travelers} TravelerSetState={this.setState} />;
+        return <AddTraveler view={modalView} tripId={this.props.tripId} travelers={travelers} onClick={handleClickOff} onSubmit={handleTraveler} />;
       }
     };
     return (

@@ -10,7 +10,15 @@ export default class AddTraveler extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClickOff = this.handleClickOff.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const traveler = this.state;
+    this.props.onSubmit(traveler);
+
+    event.target.reset();
   }
 
   handleChange(event) {
@@ -20,42 +28,13 @@ export default class AddTraveler extends React.Component {
     });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const req = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state)
-    };
-    fetch(`/api/travelers/${this.props.tripId}`, req)
-      .then(response => response.json())
-      .then(newTrip => {
-        const newTravelers = this.props.travelers.concat(newTrip);
-        this.props.TravelerSetState({ travelers: newTravelers });
-        event.target.reset();
-      })
-      .catch(err => console.error(err));
-
-    this.props.TravelerSetState({
-      modalView: false
-    });
-  }
-
-  handleClickOff(e) {
-    this.props.TravelerSetState({
-      modalView: false
-    });
-  }
-
   stopPropagation(e) {
     e.stopPropagation();
   }
 
   render() {
     return (
-      <div className="overlay d-flex justify-content-center align-items-center position-fixed w-100 h-100" onClick={this.handleClickOff}>
+      <div className="overlay d-flex justify-content-center align-items-center position-fixed w-100 h-100" onClick={this.props.onClick}>
         <div className="d-flex flex-column justify-content-center w-75 bg-white rounded-lg py-4 px-4" onClick={this.stopPropagation}>
           <h2 className="text-center my-3">Add a traveler</h2>
           <form id="travelerForm" className="d-flex flex-column" onSubmit={this.handleSubmit}>

@@ -1,4 +1,5 @@
 import React from 'react';
+import parseRoute from '../lib/parse-route';
 
 export function HomeIcon(props) {
   return (
@@ -34,8 +35,17 @@ export function DashDeleteIcon(props) {
 }
 
 export function PlusIcon(props) {
+  let fillColor;
+  let size;
+  if (parseRoute(window.location.hash).path === 'travelers') {
+    fillColor = '#ffad0f';
+    size = '2.75rem';
+  } else {
+    fillColor = '#000000';
+    size = '2rem';
+  }
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} fill={fillColor} className="bi bi-plus" viewBox="0 0 16 16">
       <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
     </svg>
   );
@@ -131,10 +141,23 @@ export function Checkbox(props) {
     </svg>
   );
 }
+
 export function Checkmark(props) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="#40B4A6" className="bi bi-check2" viewBox="0 0 16 16">
       <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+    </svg>
+  );
+}
+
+export function EditPencil(props) {
+  return (
+    <svg viewBox="0 0 32 32" width="1.5rem" height="1.5rem" fill="#ffad0f" xmlns="http://www.w3.org/2000/svg">
+      <g data-name="Layer 18" id="Layer_18">
+        <path className="cls-1" d="M2,31a1,1,0,0,1-1-1.11l.9-8.17a1,1,0,0,1,.29-.6L21.27,2.05a3.56,3.56,0,0,1,5.05,0L30,5.68a3.56,3.56,0,0,1,0,5.05L10.88,29.8a1,1,0,0,1-.6.29L2.11,31Zm8.17-1.91h0ZM3.86,22.28l-.73,6.59,6.59-.73L28.54,9.31a1.58,1.58,0,0,0,0-2.22L24.91,3.46a1.58,1.58,0,0,0-2.22,0Z" />
+        <path className="cls-1" d="M26.52,13.74a1,1,0,0,1-.7-.29L18.55,6.18A1,1,0,0,1,20,4.77L27.23,12a1,1,0,0,1,0,1.41A1,1,0,0,1,26.52,13.74Z" />
+        <rect className="cls-1" height="2" transform="translate(-7.91 15.47) rotate(-45)" width="12.84" x="8.29" y="16.28" />
+      </g>
     </svg>
   );
 }

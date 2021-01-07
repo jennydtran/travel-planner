@@ -28,10 +28,10 @@ export default class App extends React.Component {
   renderPage() {
     const { route, user } = this.state;
 
-    if (user === null) {
+    if (route.path === '' || user === null) {
       return <UserSignUp />;
     }
-    if (route.path === '') {
+    if (route.path === 'home') {
       return <Home />;
     }
     if (route.path === 'tripsnapshot') {

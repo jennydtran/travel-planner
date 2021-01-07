@@ -39,7 +39,7 @@ export default class TripSummary extends React.Component {
     const todoLength = this.state.tripTodoList.length;
     return (
       <>
-        <TopNav name={name}/>
+        <TopNav name={name} tripId={this.state.currentTrip.tripId}/>
         <Body trip={this.state.currentTrip} numberOfItems={todoLength} itemsCompleted={this.state.currentTrip.itemsCompleted} />
       </>
     );
@@ -50,7 +50,7 @@ function TopNav(props) {
   return (
     <nav className="nav navbar-light fixed-top align-items-center justify-content-between px-2">
       <div className="d-flex align-items-center">
-        <a href="#">
+        <a href='#home'>
           <button className="bg-transparent p-0 nav-link ">
             <Icons.BackLeftIcon />
           </button>

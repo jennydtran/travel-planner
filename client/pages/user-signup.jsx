@@ -7,7 +7,8 @@ export default class UserSignUp extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      currentView: 'usernameInput'
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -20,7 +21,7 @@ export default class UserSignUp extends React.Component {
   }
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, currentView } = this.state;
     return (
       <>
         <Logo />
@@ -34,30 +35,44 @@ export default class UserSignUp extends React.Component {
           </div>
           <div className="align-self-stretch">
             <form id="signup" className="px-3 d-flex flex-column">
-
-              {/* <div className="form-group">
-                <label className="dark-teal mb-3" htmlFor="username">Username</label>
-                <input className="form-control form-control-lg mb-3" type="text" id="username" name="username" required />
-              </div>
-              <button className="w-100 rounded-lg align-self-center my-3 mt-5" type="submit" value="Submit">Next</button> */}
-
-              <InputPassword pw={password} onChange={this.handleChange}/>
-
+            {currentView === 'usernameInput'
+              ? <InputUsername username={username} onChange={this.handleChange}/>
+              : currentView === 'passwordInput'
+                ? <InputPassword pw={password} onChange={this.handleChange}/>
+                : <FinishedMessage />
+            }
             </form>
-
-            {/* <div className="text-center dark-teal">
-              <h5 className="dark-teal font-weight-bold mt-4">Thank you</h5>
-              <p className="mt-3 mb-1">Account successfully created.</p>
-              <p className="mt-2">Please sign in to start travel planning!</p>
-              <button className="w-100 rounded-lg align-self-center my-3 mt-4" type="submit" value="Submit">Finish</button>
-            </div> */}
-
           </div>
           <div className="text-center align-self-stretch">
             <p className="light-teal mb-1">Do you have an account?</p>
             <a href="" className="signin-up">Sign In</a>
           </div>
         </main>
+      </>
+    );
+  }
+}
+
+function FinishedMessage(props) {
+  return (
+    <div className="text-center dark-teal">
+      <h5 className="dark-teal font-weight-bold mt-4">Thank you</h5>
+      <p className="mt-3 mb-1">Account successfully created.</p>
+      <p className="mt-2">Please sign in to start travel planning!</p>
+      <button className="w-100 rounded-lg align-self-center my-3 mt-4" type="button" href="#">Finish</button>
+    </div>
+  );
+}
+
+class InputUsername extends React.Component {
+  render() {
+    return (
+      <>
+        <div className="form-group">
+          <label className="dark-teal mb-3" htmlFor="username">Username</label>
+          <input className="form-control form-control-lg mb-3" type="text" id="username" name="username" value={this.props.username} onChange={this.props.onChange} required />
+        </div>
+        <button className="w-100 rounded-lg align-self-center my-3 mt-5" type="submit" value="Submit">Next</button>
       </>
     );
   }

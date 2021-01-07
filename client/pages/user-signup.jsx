@@ -27,11 +27,7 @@ export default class UserSignUp extends React.Component {
         <Logo />
         <main className="fixed-bottom signup-in-container pb-4 pt-5 d-flex flex-column align-items-center justify-content-between">
           <div className="align-self-stretch d-flex justify-content-center">
-            <ul className="list-unstyled d-flex mt-3">
-              <li key="1"><CircleActive /></li>
-              <li key="2" className="mx-1"><CircleInactive /></li>
-              <li key="3"><CircleInactive /></li>
-            </ul>
+            <Indicators currentView={currentView}/>
           </div>
           <div className="align-self-stretch">
             <form id="signup" className="px-3 d-flex flex-column">
@@ -111,8 +107,18 @@ class InputPassword extends React.Component {
             </button>
           </div>
         </div>
-        <button className="w-100 rounded-lg align-self-center my-3 mt-5" type="submit" value="Submit">Next</button>
+        <button className="w-100 rounded-lg align-self-center my-3 mt-5" type="submit" value="Submit">Create Account</button>
       </>
     );
   }
+}
+
+function Indicators(props) {
+  return (
+    <ul className="list-unstyled d-flex mt-3">
+      <li key="1">{props.currentView === 'usernameInput' ? <CircleActive /> : <CircleInactive />}</li>
+      <li key="2" className="mx-1">{props.currentView === 'passwordInput' ? <CircleActive /> : <CircleInactive />}</li>
+      <li key="3">{props.currentView === 'finished' ? <CircleActive /> : <CircleInactive />}</li>
+    </ul>
+  );
 }

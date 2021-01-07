@@ -109,6 +109,15 @@ button:active {
   border-radius: 0 0 50% 50%;
 }
 
+.nofilter {
+  filter: none;
+}
+
 .signup-in-container {
   height: 60vh;
+}
+
+.signin-up {
+  font-weight: 600;
+  color: #ffad0f;
 }

@@ -107,8 +107,9 @@ function Summary(props) {
 }
 
 function ToDoReminder(props) {
-  const { numberOfItems, itemsCompleted } = props;
-
+  const { numberOfItems } = props;
+  let itemsCompleted = props.itemsCompleted;
+  itemsCompleted = Number.parseInt(itemsCompleted, 10);
   return (
     <div className="bg-white rounded-lg w-100 border mt-3 py-3 px-4">
       <div className="row justify-content-between w-100 m-0">

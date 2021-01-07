@@ -8,9 +8,14 @@ export default class UserSignUp extends React.Component {
     this.state = {
       username: '',
       password: '',
-      currentView: 'usernameInput'
+      currentView: 'usernameInput',
+      usernameError: '',
+      passwordError: ''
     };
     this.handleChange = this.handleChange.bind(this);
+    this.clickNext = this.clickNext.bind(this);
+    this.handleUsernameError = this.handleUsernameError.bind(this);
+    this.handlePasswordError = this.handlePasswordError.bind(this);
   }
 
   handleChange(event) {
@@ -20,8 +25,23 @@ export default class UserSignUp extends React.Component {
     });
   }
 
+  handleUsernameError(error) {
+    console.log(error);
+  }
+
+  handlePasswordError(error) {
+    console.log(error);
+  }
+
+  clickNext() {
+    if (this.state.username === '') {
+      return;
+    }
+    this.setState({ currentView: 'passwordInput' });
+  }
+
   render() {
-    const { username, password, currentView } = this.state;
+    const { username, password, currentView, usernameError, passwordError } = this.state;
     return (
       <>
         <Logo />
@@ -32,9 +52,9 @@ export default class UserSignUp extends React.Component {
           <div className="align-self-stretch">
             <form id="signup" className="px-3 d-flex flex-column">
             {currentView === 'usernameInput'
-              ? <InputUsername username={username} onChange={this.handleChange}/>
+              ? <InputUsername username={username} error={usernameError} handleError={this.handleUsernameError} onChange={this.handleChange} onClick={this.clickNext}/>
               : currentView === 'passwordInput'
-                ? <InputPassword pw={password} onChange={this.handleChange}/>
+                ? <InputPassword pw={password} error={passwordError} handleError={this.handlePasswordError} onChange={this.handleChange}/>
                 : <FinishedMessage />
             }
             </form>
@@ -61,14 +81,17 @@ function FinishedMessage(props) {
 }
 
 class InputUsername extends React.Component {
+
+  
   render() {
     return (
       <>
         <div className="form-group">
           <label className="dark-teal mb-3" htmlFor="username">Username</label>
-          <input className="form-control form-control-lg mb-3" type="text" id="username" name="username" value={this.props.username} onChange={this.props.onChange} required />
+          <input className="form-control form-control-lg mb-2" type="text" id="username" name="username" value={this.props.username} onChange={this.props.onChange} required />
+          <p className="text-center text-danger small">{this.props.error}</p>
         </div>
-        <button className="w-100 rounded-lg align-self-center my-3 mt-5" type="submit" value="Submit">Next</button>
+        <button className="w-100 rounded-lg align-self-center my-3 mt-5" onClick={this.props.onClick}>Next</button>
       </>
     );
   }
@@ -101,11 +124,12 @@ class InputPassword extends React.Component {
         <div className="form-group">
           <label className="dark-teal mb-3" htmlFor="password">Password</label>
           <div className="d-flex justify-content-end">
-            <input className="form-control form-control-lg mb-3" type={this.state.type} id="password" name="password" value={pw} onChange={this.props.onChange} required />
+            <input className="form-control form-control-lg mb-2" type={this.state.type} id="password" name="password" value={pw} onChange={this.props.onChange} required />
             <button className="nofilter p-0 bg-transparent position-absolute mt-2 mr-3" onClick={this.passwordToggle}>
               {!this.state.hidden ? <EyeOpen /> : <EyeClosed /> }
             </button>
           </div>
+          <p className="text-center text-danger small">{this.props.error}</p>
         </div>
         <button className="w-100 rounded-lg align-self-center my-3 mt-5" type="submit" value="Submit">Create Account</button>
       </>
@@ -116,9 +140,9 @@ class InputPassword extends React.Component {
 function Indicators(props) {
   return (
     <ul className="list-unstyled d-flex mt-3">
-      <li key="1">{props.currentView === 'usernameInput' ? <CircleActive /> : <CircleInactive />}</li>
-      <li key="2" className="mx-1">{props.currentView === 'passwordInput' ? <CircleActive /> : <CircleInactive />}</li>
-      <li key="3">{props.currentView === 'finished' ? <CircleActive /> : <CircleInactive />}</li>
+      <li>{props.currentView === 'usernameInput' ? <CircleActive /> : <CircleInactive />}</li>
+      <li className="mx-1">{props.currentView === 'passwordInput' ? <CircleActive /> : <CircleInactive />}</li>
+      <li>{props.currentView === 'finished' ? <CircleActive /> : <CircleInactive />}</li>
     </ul>
   );
 }

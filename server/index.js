@@ -23,7 +23,6 @@ app.post('/api/auth/sign-up', (req, res, next) => {
   if (!username || !password) {
     throw new ClientError(400, 'username and password are required fields');
   }
-
   argon2
     .hash(password)
     .then(hashedPassword => {

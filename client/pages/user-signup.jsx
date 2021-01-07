@@ -3,7 +3,24 @@ import Logo from '../components/logo';
 import { CircleInactive, CircleActive, EyeClosed, EyeOpen } from '../components/svg';
 
 export default class UserSignUp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    const value = event.target.value;
+    this.setState({
+      [event.target.name]: value
+    });
+  }
+
   render() {
+    const { username, password } = this.state;
     return (
       <>
         <Logo />
@@ -24,17 +41,7 @@ export default class UserSignUp extends React.Component {
               </div>
               <button className="w-100 rounded-lg align-self-center my-3 mt-5" type="submit" value="Submit">Next</button> */}
 
-              <div className="form-group">
-                <label className="dark-teal mb-3" htmlFor="password">Password</label>
-                <div className="d-flex justify-content-end">
-                  <input className="form-control form-control-lg mb-3" type="password" id="password" name="password" required />
-                  <button className="nofilter p-0 bg-transparent position-absolute mt-2 mr-3">
-                    <EyeClosed />
-                    {/* <EyeOpen /> */}
-                  </button>
-                </div>
-              </div>
-              <button className="w-100 rounded-lg align-self-center my-3 mt-5" type="submit" value="Submit">Next</button>
+              <InputPassword pw={password} onChange={this.handleChange}/>
 
             </form>
 
@@ -51,6 +58,45 @@ export default class UserSignUp extends React.Component {
             <a href="" className="signin-up">Sign In</a>
           </div>
         </main>
+      </>
+    );
+  }
+}
+
+class InputPassword extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      type: 'password',
+      hidden: false
+    };
+    this.passwordToggle = this.passwordToggle.bind(this);
+  }
+
+  passwordToggle(e) {
+    e.preventDefault();
+    const hidden = this.state.hidden;
+    const type = hidden ? 'password' : 'text';
+    this.setState({
+      type: type,
+      hidden: !hidden
+    });
+  }
+
+  render() {
+    const { pw } = this.props.pw;
+    return (
+      <>
+        <div className="form-group">
+          <label className="dark-teal mb-3" htmlFor="password">Password</label>
+          <div className="d-flex justify-content-end">
+            <input className="form-control form-control-lg mb-3" type={this.state.type} id="password" name="password" value={pw} onChange={this.props.onChange} required />
+            <button className="nofilter p-0 bg-transparent position-absolute mt-2 mr-3" onClick={this.passwordToggle}>
+              {!this.state.hidden ? <EyeOpen /> : <EyeClosed /> }
+            </button>
+          </div>
+        </div>
+        <button className="w-100 rounded-lg align-self-center my-3 mt-5" type="submit" value="Submit">Next</button>
       </>
     );
   }

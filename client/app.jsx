@@ -4,6 +4,7 @@ import TripSummary from './pages/trip-snapshot';
 import TripTodo from './pages/trip-todo';
 import TripTravelers from './pages/trip-travelers';
 import UserSignUp from './pages/user-signup';
+import UserSignIn from './pages/user-signin';
 import parseRoute from './lib/parse-route';
 
 export default class App extends React.Component {
@@ -27,8 +28,10 @@ export default class App extends React.Component {
 
   renderPage() {
     const { route, user } = this.state;
-
     if (route.path === '' || user === null) {
+      return <UserSignIn />;
+    }
+    if (route.path === 'signup') {
       return <UserSignUp />;
     }
     if (route.path === 'home') {

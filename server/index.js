@@ -42,6 +42,51 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/auth/sign-in', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(401, 'Invalid login');
+  }
+  const sql = `
+    select "userId",
+           "hashedPassword"
+      from "users"
+     where "username" = $1
+  `;
+  const params = [username];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      if (!user) {
+        throw new ClientError(401, 'Invalid login');
+      }
+      return user;
+    })
+    .then(user => {
+      argon2
+        .verify(user.hashedPassword, password)
+        .then(matches => {
+          if (!matches) {
+            throw new ClientError(401, 'Invalid login');
+          } else {
+            const payload = {
+              userId: user.userId,
+              username: username
+            };
+            const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+            res.status(200).json({
+              token: token,
+              user: payload
+            });
+          }
+        })
+        .catch(err => next(err));
+    })
+    .catch(err => next(err));
+});
+
+// app.use(authorizationMiddleware);
+
 app.get('/api/trip', (req, res, next) => {
   const sql = `
     select *

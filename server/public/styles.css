@@ -121,3 +121,8 @@ button:active {
   font-weight: 600;
   color: #ffad0f;
 }
+
+.signin-up:hover {
+  color: #ffc75e;
+  text-decoration: none;
+}

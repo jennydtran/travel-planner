@@ -15,6 +15,7 @@ export default class UserSignUp extends React.Component {
     this.clickNext = this.clickNext.bind(this);
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
+    this.createAccount = this.createAccount.bind(this);
   }
 
   handleUsername(value, error) {
@@ -31,12 +32,38 @@ export default class UserSignUp extends React.Component {
     }));
   }
 
-  clickNext(e) {
+  clickNext(event) {
     if (this.state.username === '' || this.state.usernameError !== '') {
-      e.preventDefault();
+      event.preventDefault();
       return;
     }
     this.setState({ currentView: 'passwordInput' });
+  }
+
+  createAccount(event) {
+    if (this.state.password === '' || this.state.passwordError !== '') {
+      event.preventDefault();
+      return;
+    }
+    event.preventDefault();
+    const user = { username: this.state.username, password: this.state.password };
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    };
+    fetch('/api/auth/sign-up', req)
+      .then(response => response.json())
+      .then(() => {
+        this.setState({
+          username: '',
+          password: '',
+          currentView: 'Finished'
+        });
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -49,11 +76,11 @@ export default class UserSignUp extends React.Component {
             <Indicators currentView={currentView}/>
           </div>
           <div className="align-self-stretch">
-            <form id="signup" className="px-3 d-flex flex-column">
+            <form id="signup" className="px-3 d-flex flex-column" onSubmit={this.createAccount}>
             {currentView === 'usernameInput'
               ? <InputUsername username={username} error={usernameError} handleUsername={this.handleUsername} clickNext={this.clickNext}/>
               : currentView === 'passwordInput'
-                ? <InputPassword password={password} error={passwordError} handlePassword={this.handlePassword}/>
+                ? <InputPassword password={password} error={passwordError} handlePassword={this.handlePassword} />
                 : <FinishedMessage />
             }
             </form>

@@ -6,7 +6,7 @@ const serverPublicPath = path.join(__dirname, 'server/public');
 
 module.exports = {
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.png']
   },
   entry: clientPath,
   output: {
@@ -25,6 +25,14 @@ module.exports = {
             ]
           }
         }
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader'
+          }
+        ]
       }
     ]
   },

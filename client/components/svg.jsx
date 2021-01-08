@@ -152,12 +152,47 @@ export function Checkmark(props) {
 
 export function EditPencil(props) {
   return (
-    <svg viewBox="0 0 32 32" width="1.5rem" height="1.5rem" fill="#ffad0f" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 32 32 " width="1.5rem" height="1.5rem" fill="#ffad0f" xmlns="http://www.w3.org/2000/svg">
       <g data-name="Layer 18" id="Layer_18">
         <path className="cls-1" d="M2,31a1,1,0,0,1-1-1.11l.9-8.17a1,1,0,0,1,.29-.6L21.27,2.05a3.56,3.56,0,0,1,5.05,0L30,5.68a3.56,3.56,0,0,1,0,5.05L10.88,29.8a1,1,0,0,1-.6.29L2.11,31Zm8.17-1.91h0ZM3.86,22.28l-.73,6.59,6.59-.73L28.54,9.31a1.58,1.58,0,0,0,0-2.22L24.91,3.46a1.58,1.58,0,0,0-2.22,0Z" />
         <path className="cls-1" d="M26.52,13.74a1,1,0,0,1-.7-.29L18.55,6.18A1,1,0,0,1,20,4.77L27.23,12a1,1,0,0,1,0,1.41A1,1,0,0,1,26.52,13.74Z" />
         <rect className="cls-1" height="2" transform="translate(-7.91 15.47) rotate(-45)" width="12.84" x="8.29" y="16.28" />
       </g>
+    </svg>
+  );
+}
+
+export function CircleInactive(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="0.7rem" height="0.7rem" fill="rgba(145, 228, 218, 0.4)" className="bi bi-circle-fill" viewBox="0 0 16 16">
+      <circle cx="8" cy="8" r="8" />
+    </svg>
+  );
+}
+
+export function CircleActive(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="0.7rem" height="0.7rem" fill="#34a598" className="bi bi-circle-fill" viewBox="0 0 16 16">
+      <circle cx="8" cy="8" r="8" />
+    </svg>
+  );
+}
+
+export function EyeClosed(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1.25rem" fill="#aaa" className="bi bi-eye-slash mt-1" viewBox="0 0 16 16">
+      <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
+      <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299l.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+      <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884l-12-12 .708-.708 12 12-.708.708z" />
+    </svg>
+  );
+}
+
+export function EyeOpen(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1.25rem" fill="#aaa" className="bi bi-eye mt-1" viewBox="0 0 16 16">
+      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
     </svg>
   );
 }

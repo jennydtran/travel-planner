@@ -96,3 +96,33 @@ button:active {
   color: #979797;
   font-weight: 400;
 }
+
+.logo-outer-div {
+  overflow: hidden;
+}
+
+.logo-bg {
+  width: 130%;
+  position: relative;
+  right: 15%;
+  background-color: #6bdcce;
+  border-radius: 0 0 50% 50%;
+}
+
+.nofilter {
+  filter: none;
+}
+
+.signup-in-container {
+  height: 60vh;
+}
+
+.signin-up {
+  font-weight: 600;
+  color: #ffad0f;
+}
+
+.signin-up:hover {
+  color: #ffc75e;
+  text-decoration: none;
+}

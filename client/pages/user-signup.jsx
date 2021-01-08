@@ -24,9 +24,10 @@ export default class UserSignUp extends React.Component {
     }));
   }
 
-  handlePassword(value) {
+  handlePassword(value, error) {
     this.setState(state => ({
-      password: value
+      password: value,
+      passwordError: error
     }));
   }
 
@@ -111,8 +112,6 @@ class InputPassword extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: '',
-      errorMessage: '',
       type: 'password',
       hidden: false
     };
@@ -131,49 +130,31 @@ class InputPassword extends React.Component {
     });
   }
 
-  validatePassword(event) {
+  validatePassword(inputvalue) {
     const regexLowercase = /^(?=.*[a-z])/;
     const regexUppercase = /^(?=.*[A-Z])/;
     const regexNumber = /^(?=.*[0-9])/;
     const regexSpecial = /^(?=.*[!@#$%^&*()])/;
     const regexEight = /^(?=.{8,})/;
 
-    if (event === '') {
-      this.setState(state => ({
-        errorMessage: 'A password is required.'
-      }));
-    } else if (regexEight.test(event) === false) {
-      this.setState(state => ({
-        errorMessage: 'Your password must be at least 8 characters long.'
-      }));
-    } else if (regexSpecial.test(event) === false) {
-      this.setState(state => ({
-        errorMessage: 'Your password must contain at least one special character.'
-      }));
-    } else if (regexNumber.test(event) === false) {
-      this.setState(state => ({
-        errorMessage: 'Your password must contain at least one number.'
-      }));
-    } else if (regexUppercase.test(event) === false) {
-      this.setState(state => ({
-        errorMessage: 'Your password must contain at least one uppercase letter.'
-      }));
-    } else if (regexLowercase.test(event) === false) {
-      this.setState(state => ({
-        errorMessage: 'Your password must contain at least one lowercase letter.'
-      }));
+    if (inputvalue === '') {
+      this.props.handlePassword(inputvalue, 'A password is required.');
+    } else if (regexEight.test(inputvalue) === false) {
+      this.props.handlePassword(inputvalue, 'Your password must be at least 8 characters long.');
+    } else if (regexSpecial.test(inputvalue) === false) {
+      this.props.handlePassword(inputvalue, 'Your password must contain at least one special character.');
+    } else if (regexNumber.test(inputvalue) === false) {
+      this.props.handlePassword(inputvalue, 'Your password must contain at least one number.');
+    } else if (regexUppercase.test(inputvalue) === false) {
+      this.props.handlePassword(inputvalue, 'Your password must contain at least one uppercase letter.');
+    } else if (regexLowercase.test(inputvalue) === false) {
+      this.props.handlePassword(inputvalue, 'Your password must contain at least one lowercase letter.');
     } else {
-      this.setState(state => ({
-        errorMessage: ''
-      }));
+      this.props.handlePassword(inputvalue, '');
     }
-    this.props.handlePassword(this.state.password);
   }
 
   handleChange(event) {
-    this.setState(state => ({
-      password: event.target.value
-    }));
     this.validatePassword(event.target.value);
   }
 
@@ -183,7 +164,7 @@ class InputPassword extends React.Component {
         <div className="form-group">
           <label className="dark-teal mb-3" htmlFor="password">Password</label>
           <div className="d-flex justify-content-end">
-            <input className="form-control form-control-lg mb-2" type={this.state.type} id="password" name="password" value={this.state.password} onChange={this.handleChange} required />
+            <input className="form-control form-control-lg mb-2" type={this.state.type} id="password" name="password" value={this.props.password} onChange={this.handleChange} required />
             <button className="nofilter p-0 bg-transparent position-absolute mt-2 mr-3" onClick={this.passwordToggle}>
               {!this.state.hidden ? <EyeOpen /> : <EyeClosed /> }
             </button>

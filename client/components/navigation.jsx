@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackLeftIcon, ThreeDotNavIcon, ChevronUp } from './svg';
+import { BackLeftIcon, SignOut, ChevronUp } from './svg';
 
 export function TopNav(props) {
   return (
@@ -15,7 +15,7 @@ export function TopNav(props) {
         </div>
       </div>
       <button className="bg-transparent p-0 nav-item">
-        <ThreeDotNavIcon />
+        <SignOut />
       </button>
     </nav>
   );

@@ -70,7 +70,7 @@ function TopNav(props) {
         </div>
       </div>
       <button className="bg-transparent p-0 nav-item">
-        <Icons.ThreeDotNavIcon />
+        <Icons.SignOut />
       </button>
     </nav>
   );

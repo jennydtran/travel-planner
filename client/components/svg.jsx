@@ -196,3 +196,13 @@ export function EyeOpen(props) {
     </svg>
   );
 }
+
+export function SignOut(props) {
+  return (
+    <svg height="1.9rem" viewBox="0 0 24 24" width="1.9rem" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 22H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h5" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+      <polyline fill="none" points="17 16 21 12 17 8" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
+      <line fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" x1="21" x2="9" y1="12" y2="12" />
+    </svg>
+  );
+}

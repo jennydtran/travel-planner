@@ -96,7 +96,7 @@ export default class TripTravelers extends React.Component {
     return (
       <>
         <TopNav name={name} tripId={this.props.tripId} />
-        <Body onClick={this.handleClickAddTraveler}/>
+        <Body onClick={this.handleClickAddTraveler} travelers={travelers}/>
         <Footer />
         {renderModal()}
       </>
@@ -117,7 +117,55 @@ function Body(props) {
           <Icons.PlusIcon />
         </button>
       </div>
-      <hr className="w-100 my-3 d-block border-0" />
+      <hr className="w-100 mt-2 mb-1 d-block border-0" />
+      <div>
+        <TravelersList travelers={props.travelers} />
+      </div>
     </main>
+  );
+}
+
+function TravelersList(props) {
+  return (
+    <table className="table">
+      <thead>
+        <tr className="d-flex">
+          <th className="col-3">Name</th>
+          <th className="col-7 px-4">Notes</th>
+          <th className="col-2 text-center">Going</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          props.travelers.map(traveler => {
+            return (
+              <Traveler
+                key={traveler.travelerId}
+                traveler={traveler}
+              />
+            );
+          })
+        }
+      </tbody>
+    </table>
+  );
+}
+
+function Traveler(props) {
+  let goingIcon;
+  if (props.traveler.going === 'Yes') {
+    goingIcon = <Icons.Checkmark />;
+  } else if (props.traveler.going === 'No') {
+    goingIcon = <Icons.XIcon />;
+  } else {
+    goingIcon = <Icons.Question />;
+  }
+
+  return (
+    <tr className="d-flex">
+      <td className="col-3">{props.traveler.name}</td>
+      <td className="col-7 px-4">{props.traveler.notes}</td>
+      <td className="col-2 text-center">{goingIcon}</td>
+    </tr>
   );
 }

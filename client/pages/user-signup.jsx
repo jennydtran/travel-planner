@@ -1,5 +1,7 @@
 import React from 'react';
 import Logo from '../components/logo';
+import AppContext from '../lib/app-context';
+import Redirect from '../components/redirect';
 import InputUsername from '../components/validation-username';
 import InputPassword from '../components/validation-password';
 import { CircleInactive, CircleActive } from '../components/svg';
@@ -69,6 +71,8 @@ export default class UserSignUp extends React.Component {
   }
 
   render() {
+    if (this.context.user) return <Redirect to="home" />;
+
     const { username, password, currentView, passwordError, usernameError } = this.state;
     return (
       <>
@@ -113,7 +117,9 @@ function FinishedMessage(props) {
       <h5 className="dark-teal font-weight-bold mt-4">Thank you</h5>
       <p className="mt-3 mb-1">Account successfully created.</p>
       <p className="mt-2">Please sign in to start travel planning!</p>
-      <button className="w-100 rounded-lg align-self-center my-3 mt-4" type="button" href="#">Finish</button>
+      <a href="#signin"><button className="w-100 rounded-lg align-self-center my-3 mt-4" type="button">Finish</button></a>
     </div>
   );
 }
+
+UserSignUp.contextType = AppContext;

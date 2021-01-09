@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Icons from '../components/svg';
+import AppContext from '../lib/app-context';
 import { TopNav, Footer } from '../components/navigation';
 import AddTraveler from '../components/form-addtraveler';
 
@@ -23,7 +24,11 @@ export default class TripTravelers extends React.Component {
   }
 
   getSingleTrip() {
-    fetch(`/api/trip/${this.props.tripId}`)
+    fetch(`/api/trip/${this.props.tripId}`, {
+      headers: {
+        'X-Access-Token': this.context.token
+      }
+    })
       .then(response => response.json())
       .then(trips => {
         this.setState({ currentTrip: trips });
@@ -32,7 +37,11 @@ export default class TripTravelers extends React.Component {
   }
 
   getTravelersList() {
-    fetch(`/api/travelers/${this.props.tripId}`)
+    fetch(`/api/travelers/${this.props.tripId}`, {
+      headers: {
+        'X-Access-Token': this.context.token
+      }
+    })
       .then(response => response.json())
       .then(travelersList => {
         this.setState({ travelers: travelersList });
@@ -56,7 +65,8 @@ export default class TripTravelers extends React.Component {
     const req = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Access-Token': this.context.token
       },
       body: JSON.stringify(travelerInfo)
     };
@@ -93,6 +103,7 @@ export default class TripTravelers extends React.Component {
     );
   }
 }
+TripTravelers.contextType = AppContext;
 
 function Body(props) {
   return (

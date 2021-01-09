@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Icons from '../components/svg';
+import AppContext from '../lib/app-context';
 import dateReformat from '../components/date-reformat';
 
 export default class TripSummary extends React.Component {
@@ -17,7 +18,11 @@ export default class TripSummary extends React.Component {
   }
 
   getSingleTrip() {
-    fetch(`/api/trip/${this.props.tripId}`)
+    fetch(`/api/trip/${this.props.tripId}`, {
+      headers: {
+        'X-Access-Token': this.context.token
+      }
+    })
       .then(response => response.json())
       .then(trip => {
         this.setState({ currentTrip: trip });
@@ -25,7 +30,11 @@ export default class TripSummary extends React.Component {
   }
 
   getTodoList() {
-    fetch(`/api/triptodo/${this.props.tripId}`)
+    fetch(`/api/triptodo/${this.props.tripId}`, {
+      headers: {
+        'X-Access-Token': this.context.token
+      }
+    })
       .then(response => response.json())
       .then(todoList => {
         this.setState({ tripTodoList: todoList });
@@ -45,6 +54,7 @@ export default class TripSummary extends React.Component {
     );
   }
 }
+TripSummary.contextType = AppContext;
 
 function TopNav(props) {
   return (

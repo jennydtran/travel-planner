@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 import dateReformat from './date-reformat';
 
 export default class TripModal extends React.Component {
@@ -40,7 +41,8 @@ export default class TripModal extends React.Component {
     const req = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Access-Token': this.context.token
       },
       body: JSON.stringify(this.state)
     };
@@ -113,3 +115,5 @@ export default class TripModal extends React.Component {
     }
   }
 }
+
+TripModal.contextType = AppContext;

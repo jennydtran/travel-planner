@@ -1,5 +1,7 @@
 import React from 'react';
 import * as Icons from '../components/svg';
+import AppContext from '../lib/app-context';
+import Redirect from '../components/redirect';
 import TripModal from '../components/form-addtrip';
 
 export default class Home extends React.Component {
@@ -14,11 +16,16 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
+    if (!this.context.user) return null;
     this.getAllTrips();
   }
 
   getAllTrips() {
-    fetch('/api/trip')
+    fetch('/api/trip', {
+      headers: {
+        'X-Access-Token': this.context.token
+      }
+    })
       .then(response => response.json())
       .then(trips => this.setState(state => ({
         tripEntries: trips
@@ -33,12 +40,18 @@ export default class Home extends React.Component {
   }
 
   render() {
+    if (!this.context.user) {
+      return <Redirect to="signin" />;
+    }
+
+    const username = this.context.user.username;
     const { modalView, tripEntries } = this.state;
     const { handleClickAdd } = this;
+
     return (
       <>
         <TopNav />
-        <HomeBody tripEntries={tripEntries} homeState={this.setState}/>
+        <HomeBody username={username} tripEntries={tripEntries} homeState={this.setState}/>
         <BottomNav onClick={handleClickAdd}/>
         { modalView &&
           <TripModal view={modalView} tripEntries={tripEntries} homeState={this.setState}/>
@@ -65,7 +78,7 @@ function HomeBody(props) {
   return (
     <main className="d-flex flex-column pt-3">
       <div>
-        <p className="h6 m-0 mt-3">Hello, <strong>username</strong></p>
+        <p className="h6 m-0 mt-3">Hello, <strong>{props.username}</strong></p>
         <p className="m-0 p-0 mt-2 small text-muted"><span>What are we planning today?</span></p>
         <hr className="dmx-2 my-4 d-block border-0" />
       </div>
@@ -151,3 +164,5 @@ function BottomNav(props) {
     </footer>
   );
 }
+
+Home.contextType = AppContext;

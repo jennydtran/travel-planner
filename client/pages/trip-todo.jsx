@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Icons from '../components/svg';
+import AppContext from '../lib/app-context';
 import ToDoForm from '../components/form-todo';
 import { TopNav } from '../components/navigation';
 
@@ -22,7 +23,11 @@ export default class TripTodo extends React.Component {
   }
 
   getSingleTrip() {
-    fetch(`/api/trip/${this.props.tripId}`)
+    fetch(`/api/trip/${this.props.tripId}`, {
+      headers: {
+        'X-Access-Token': this.context.token
+      }
+    })
       .then(response => response.json())
       .then(trips => {
         this.setState({ currentTrip: trips });
@@ -31,7 +36,11 @@ export default class TripTodo extends React.Component {
   }
 
   getTodoList() {
-    fetch(`/api/triptodo/${this.props.tripId}`)
+    fetch(`/api/triptodo/${this.props.tripId}`, {
+      headers: {
+        'X-Access-Token': this.context.token
+      }
+    })
       .then(response => response.json())
       .then(todoList => {
         this.setState({ todos: todoList });
@@ -57,7 +66,10 @@ export default class TripTodo extends React.Component {
 
     const requestOptions = {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': this.context.token
+      },
       body: JSON.stringify(status)
     };
     fetch(`/api/triptodo/${todoId}`, requestOptions)
@@ -80,7 +92,8 @@ export default class TripTodo extends React.Component {
     const req = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Access-Token': this.context.token
       },
       body: JSON.stringify(newTodo)
     };
@@ -107,6 +120,8 @@ export default class TripTodo extends React.Component {
     );
   }
 }
+
+TripTodo.contextType = AppContext;
 
 function Body(props) {
   return (

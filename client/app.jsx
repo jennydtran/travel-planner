@@ -1,18 +1,24 @@
 import React from 'react';
+import AppContext from './lib/app-context';
+import parseRoute from './lib/parse-route';
+import decodeToken from './lib/decode-token';
 import Home from './pages/home';
 import TripSummary from './pages/trip-snapshot';
 import TripTodo from './pages/trip-todo';
 import TripTravelers from './pages/trip-travelers';
 import UserSignUp from './pages/user-signup';
-import parseRoute from './lib/parse-route';
+import UserSignIn from './pages/user-signin';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       route: parseRoute(window.location.hash),
-      user: null
+      user: null,
+      token: null,
+      isAuthorizing: true
     };
+    this.handleSignIn = this.handleSignIn.bind(this);
   }
 
   componentDidMount() {
@@ -23,12 +29,23 @@ export default class App extends React.Component {
         route: newRoute
       }));
     });
+    const token = window.localStorage.getItem('react-context-jwt');
+    const user = token ? decodeToken(token) : null;
+    this.setState({ user, token, isAuthorizing: false });
+  }
+
+  handleSignIn(result) {
+    const { user, token } = result;
+    window.localStorage.setItem('react-context-jwt', token);
+    this.setState({ user, token });
   }
 
   renderPage() {
-    const { route, user } = this.state;
-
-    if (route.path === '' || user === null) {
+    const { route } = this.state;
+    if (route.path === 'signin' || route.path === '') {
+      return <UserSignIn />;
+    }
+    if (route.path === 'signup') {
       return <UserSignUp />;
     }
     if (route.path === 'home') {
@@ -49,10 +66,16 @@ export default class App extends React.Component {
   }
 
   render() {
+    if (this.state.isAuthorizing) return null;
+    const { user, route, token } = this.state;
+    const { handleSignIn } = this;
+    const contextValue = { user, route, token, handleSignIn };
     return (
-      <>
-        { this.renderPage()}
-      </>
+      <AppContext.Provider value={contextValue}>
+        <>
+          { this.renderPage()}
+        </>
+      </AppContext.Provider>
     );
   }
 }

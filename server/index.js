@@ -42,12 +42,50 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/auth/sign-in', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(401, 'Invalid login');
+  }
+  const sql = `
+    select "userId",
+           "hashedPassword"
+      from "users"
+     where "username" = $1
+  `;
+  const params = [username];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      if (!user) {
+        throw new ClientError(401, 'Invalid login');
+      }
+      const { userId, hashedPassword } = user;
+      return argon2
+        .verify(hashedPassword, password)
+        .then(matches => {
+          if (!matches) {
+            throw new ClientError(401, 'Invalid login');
+          }
+          const payload = { userId, username };
+          const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+          res.status(200).json({ token, user: payload });
+        });
+    })
+    .catch(err => next(err));
+});
+
+app.use(authorizationMiddleware);
+
 app.get('/api/trip', (req, res, next) => {
+  const { userId } = req.user;
   const sql = `
     select *
       from "trip"
+     where "userId" = $1
   `;
-  db.query(sql)
+  const params = [userId];
+  db.query(sql, params)
     .then(result => res.json(result.rows))
     .catch(err => next(err));
 });
@@ -117,11 +155,11 @@ app.get('/api/travelers/:tripId', (req, res, next) => {
 });
 
 app.post('/api/trip', (req, res, next) => {
+  const { userId } = req.user;
   const { tripName, tripDestination, departureDate, returnDate, numberOfDays } = req.body;
   if (!tripName || !tripDestination || !departureDate || !returnDate || !numberOfDays) {
     throw new ClientError(400, 'One of the following fields are missing: name, destination, departureDate, returnDate, numberOfDays');
   }
-  const userId = 1; // for testing purposes
   const sql = `
     insert into "trip" ("userId", "name", "destination", "departureDate", "returnDate", "numberOfDays")
     values ($1, $2, $3, $4, $5, $6)

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Icons from '../components/svg';
+import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
 import ToDoForm from '../components/form-todo';
 import { TopNav } from '../components/navigation';
@@ -18,6 +19,7 @@ export default class TripTodo extends React.Component {
   }
 
   componentDidMount() {
+    if (!this.context.user) return null;
     this.getSingleTrip();
     this.getTodoList();
   }
@@ -108,12 +110,17 @@ export default class TripTodo extends React.Component {
   }
 
   render() {
+    if (!this.context.user) {
+      return <Redirect to="signin" />;
+    }
+
     if (!this.state.currentTrip) return null;
     const { name } = this.state.currentTrip;
     const { handleChange, addTodo } = this;
+    const signout = this.context.handleSignOut;
     return (
       <>
-        <TopNav name={name} tripId={this.props.tripId} />
+        <TopNav name={name} tripId={this.props.tripId} signout={signout}/>
         <Body todo={this.state.todos} updateCompleted={this.updateCompleted}/>
         <Footer item={this.state.item} onSubmit={addTodo} onChange={handleChange} />
       </>

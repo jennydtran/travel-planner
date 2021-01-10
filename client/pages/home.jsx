@@ -47,10 +47,10 @@ export default class Home extends React.Component {
     const username = this.context.user.username;
     const { modalView, tripEntries } = this.state;
     const { handleClickAdd } = this;
-
+    const signout = this.context.handleSignOut;
     return (
       <>
-        <TopNav />
+        <TopNav signout={signout}/>
         <HomeBody username={username} tripEntries={tripEntries} homeState={this.setState}/>
         <BottomNav onClick={handleClickAdd}/>
         { modalView &&
@@ -67,8 +67,8 @@ function TopNav(props) {
       <div className="navbar-brand mx-auto">
         <Icons.HomeIcon />
       </div>
-      <button className="bg-transparent p-0 nav-item">
-        <Icons.ThreeDotNavIcon />
+      <button className="bg-transparent p-0 nav-item" onClick={props.signout}>
+        <Icons.SignOut />
       </button>
     </nav>
   );

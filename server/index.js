@@ -91,6 +91,7 @@ app.get('/api/trip', (req, res, next) => {
 });
 
 app.get('/api/trip/:tripId', (req, res, next) => {
+  const { userId } = req.user;
   const tripId = parseInt(req.params.tripId, 10);
   if (!tripId) {
     throw new ClientError(400, 'tripId must be a positive integer');
@@ -108,8 +109,9 @@ app.get('/api/trip/:tripId', (req, res, next) => {
             and "completed" = 'true')
       from "trip"
      where "tripId" = $1
+       and "userId" = $2
   `;
-  const params = [tripId];
+  const params = [tripId, userId];
   db.query(sql, params)
     .then(result => res.json(result.rows[0]))
     .catch(err => next(err));

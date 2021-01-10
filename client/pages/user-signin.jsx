@@ -38,7 +38,7 @@ export default class UserSignIn extends React.Component {
   }
 
   render() {
-    if (this.context.user) return <Redirect to="home" />;
+    if (this.context.user) return <Redirect to="" />;
 
     return (
         <>

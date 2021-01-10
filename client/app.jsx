@@ -48,13 +48,13 @@ export default class App extends React.Component {
 
   renderPage() {
     const { route } = this.state;
-    if (route.path === 'signin' || route.path === '') {
+    if (route.path === 'signin') {
       return <UserSignIn />;
     }
     if (route.path === 'signup') {
       return <UserSignUp />;
     }
-    if (route.path === 'home') {
+    if (route.path === '') {
       return <Home />;
     }
     if (route.path === 'tripsnapshot') {

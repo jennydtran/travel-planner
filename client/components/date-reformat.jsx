@@ -10,5 +10,5 @@ export default function dateReformat(date) {
   if (day < 10) {
     day = '0' + day.toString();
   }
-  return `${month}-${day}-${year}`;
+  return { format1: `${month}-${day}-${year}`, format2: `${year}-${month}-${day}` };
 }

@@ -98,8 +98,8 @@ function Body(props) {
 }
 
 function Summary(props) {
-  const depart = dateReformat(props.trip.departureDate);
-  const returnDate = dateReformat(props.trip.returnDate);
+  const depart = dateReformat(props.trip.departureDate).format1;
+  const returnDate = dateReformat(props.trip.returnDate).format1;
 
   return (
     <div className="d-flex flex-column rounded-lg bg-white w-100 border py-3 px-4">

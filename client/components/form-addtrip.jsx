@@ -71,7 +71,9 @@ export default class TripModal extends React.Component {
   }
 
   render() {
-    const maxDate = dateReformat();
+    let today = Date.now();
+    today = dateReformat(today);
+    const maxDate = today.format2;
 
     let returnMaxDate;
     let disabled;
@@ -82,7 +84,6 @@ export default class TripModal extends React.Component {
       returnMaxDate = this.state.departureDate;
       disabled = false;
     }
-
     if (!this.props.view) {
       return null;
     } else {

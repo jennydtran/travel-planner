@@ -44,6 +44,19 @@ button:active {
   transform: scale(0.98);
 }
 
+th {
+  color: #40b4a6;
+}
+
+.table td,
+.table th {
+  border-top: none;
+}
+
+.table thead th {
+  border-bottom: 1px solid #dee2e6;
+}
+
 .nav {
   background-color: rgb(243, 243, 243);
   height: 3.5rem;

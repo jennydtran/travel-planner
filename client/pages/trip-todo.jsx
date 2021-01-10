@@ -111,11 +111,7 @@ export default class TripTodo extends React.Component {
   }
 
   deleteTodo(todoId) {
-    const newTodos = [];
-    for (let i = 0; i < this.state.todos.length; i++) {
-      const obj = Object.assign({}, this.state.todos[i]);
-      newTodos.push(obj);
-    }
+    const newTodos = Array.from(this.state.todos);
     let index;
     for (let i = 0; i < newTodos.length; i++) {
       if (newTodos[i].todoId === todoId) {

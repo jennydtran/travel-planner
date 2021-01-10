@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Icons from '../components/svg';
+import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
 import dateReformat from '../components/date-reformat';
 
@@ -13,6 +14,7 @@ export default class TripSummary extends React.Component {
   }
 
   componentDidMount() {
+    if (!this.context.user) return null;
     this.getSingleTrip();
     this.getTodoList();
   }
@@ -43,12 +45,17 @@ export default class TripSummary extends React.Component {
   }
 
   render() {
+    if (!this.context.user) {
+      return <Redirect to="signin" />;
+    }
+
     if (!this.state.currentTrip) return null;
     const { name } = this.state.currentTrip;
     const todoLength = this.state.tripTodoList.length;
+    const signout = this.context.handleSignOut;
     return (
       <>
-        <TopNav name={name} tripId={this.state.currentTrip.tripId}/>
+        <TopNav signout={signout} name={name} tripId={this.state.currentTrip.tripId}/>
         <Body trip={this.state.currentTrip} numberOfItems={todoLength} itemsCompleted={this.state.currentTrip.itemsCompleted} />
       </>
     );
@@ -69,7 +76,7 @@ function TopNav(props) {
           <p className="h5 m-0 mx-2 mt-1 text-grey">{props.name}</p>
         </div>
       </div>
-      <button className="bg-transparent p-0 nav-item">
+      <button className="bg-transparent p-0 nav-item" onClick={props.signout}>
         <Icons.SignOut />
       </button>
     </nav>

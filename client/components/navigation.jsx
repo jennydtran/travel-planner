@@ -14,7 +14,7 @@ export function TopNav(props) {
           <p className="h5 m-0 mx-2 mt-1 text-grey">{props.name}</p>
         </div>
       </div>
-      <button className="bg-transparent p-0 nav-item">
+      <button className="bg-transparent p-0 nav-item" onClick={props.signout}>
         <SignOut />
       </button>
     </nav>

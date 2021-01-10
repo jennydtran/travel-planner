@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Icons from '../components/svg';
+import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
 import { TopNav, Footer } from '../components/navigation';
 import AddTraveler from '../components/form-addtraveler';
@@ -19,6 +20,7 @@ export default class TripTravelers extends React.Component {
   }
 
   componentDidMount() {
+    if (!this.context.user) return null;
     this.getSingleTrip();
     this.getTravelersList();
   }
@@ -84,6 +86,10 @@ export default class TripTravelers extends React.Component {
   }
 
   render() {
+    if (!this.context.user) {
+      return <Redirect to="signin" />;
+    }
+
     if (!this.state.currentTrip) return null;
     const { handleClickOff, handleTraveler } = this;
     const { name } = this.state.currentTrip;
@@ -93,9 +99,10 @@ export default class TripTravelers extends React.Component {
         return <AddTraveler view={modalView} tripId={this.props.tripId} travelers={travelers} onClick={handleClickOff} onSubmit={handleTraveler} />;
       }
     };
+    const signout = this.context.handleSignOut;
     return (
       <>
-        <TopNav name={name} tripId={this.props.tripId} />
+        <TopNav name={name} tripId={this.props.tripId} signout={signout}/>
         <Body onClick={this.handleClickAddTraveler}/>
         <Footer />
         {renderModal()}

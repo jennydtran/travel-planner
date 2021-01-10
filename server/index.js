@@ -243,6 +243,21 @@ app.patch('/api/triptodo/:todoId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.delete('/api/triptodo/:todoId', (req, res, next) => {
+  const todoId = parseInt(req.params.todoId, 10);
+  if (!Number.isInteger(todoId) || todoId < 1) {
+    throw new ClientError(400, 'todoId must be a positive integer');
+  }
+  const sql = `
+    delete from "todo"
+     where "todoId" = $1
+  `;
+  const params = [todoId];
+  db.query(sql, params)
+    .then(res.status(204))
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

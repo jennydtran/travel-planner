@@ -16,6 +16,7 @@ export default class TripTodo extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.addTodo = this.addTodo.bind(this);
     this.updateCompleted = this.updateCompleted.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
   }
 
   componentDidMount() {
@@ -66,7 +67,7 @@ export default class TripTodo extends React.Component {
     newTodos[index].completed = status.completed;
     this.setState({ todos: newTodos });
 
-    const requestOptions = {
+    const req = {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +75,7 @@ export default class TripTodo extends React.Component {
       },
       body: JSON.stringify(status)
     };
-    fetch(`/api/triptodo/${todoId}`, requestOptions)
+    fetch(`/api/triptodo/${todoId}`, req)
       .then(response => response.json())
       .catch(err => console.error(err));
   }
@@ -109,6 +110,33 @@ export default class TripTodo extends React.Component {
       .catch(err => console.error(err));
   }
 
+  deleteTodo(todoId) {
+    const newTodos = [];
+    for (let i = 0; i < this.state.todos.length; i++) {
+      const obj = Object.assign({}, this.state.todos[i]);
+      newTodos.push(obj);
+    }
+    let index;
+    for (let i = 0; i < newTodos.length; i++) {
+      if (newTodos[i].todoId === todoId) {
+        index = i;
+      }
+    }
+
+    newTodos.splice(index, 1);
+    this.setState({ todos: newTodos });
+
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': this.context.token
+      }
+    };
+    fetch(`/api/triptodo/${todoId}`, req)
+      .catch(err => console.error(err));
+  }
+
   render() {
     if (!this.context.user) {
       return <Redirect to="signin" />;
@@ -116,12 +144,12 @@ export default class TripTodo extends React.Component {
 
     if (!this.state.currentTrip) return null;
     const { name } = this.state.currentTrip;
-    const { handleChange, addTodo } = this;
+    const { handleChange, addTodo, deleteTodo, updateCompleted } = this;
     const signout = this.context.handleSignOut;
     return (
       <>
         <TopNav name={name} tripId={this.props.tripId} signout={signout}/>
-        <Body todo={this.state.todos} updateCompleted={this.updateCompleted}/>
+        <Body todo={this.state.todos} deleteTodo={deleteTodo} updateCompleted={updateCompleted}/>
         <Footer item={this.state.item} onSubmit={addTodo} onChange={handleChange} />
       </>
     );
@@ -137,7 +165,7 @@ function Body(props) {
         <h2 className="text-center my-3">To-Do Before Trip</h2>
       </div>
       <hr className="w-100 my-3 d-block border-0" />
-      <ToDoList todo={props.todo} updateCompleted={props.updateCompleted}/>
+      <ToDoList todo={props.todo} deleteTodo={props.deleteTodo} updateCompleted={props.updateCompleted}/>
     </main>
   );
 }
@@ -153,6 +181,7 @@ function ToDoList(props) {
                 key={todo.todoId}
                 todo={todo}
                 updateCompleted={props.updateCompleted}
+                deleteTodo={props.deleteTodo}
               />
             );
           })
@@ -169,12 +198,17 @@ class ToDoItem extends React.Component {
       completedStatus: props.todo.completed
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
   }
 
   handleClick() {
     const completed = this.state.completedStatus;
     const newStatus = { completed: !completed };
     this.setState({ completedStatus: !completed }, this.props.updateCompleted(this.props.todo.todoId, newStatus));
+  }
+
+  handleClickDelete() {
+    this.props.deleteTodo(this.props.todo.todoId);
   }
 
   render() {
@@ -190,7 +224,7 @@ class ToDoItem extends React.Component {
               {this.props.todo.item}
             </label>
           </div>
-          <button className="bg-transparent p-0">
+          <button onClick={this.handleClickDelete} className="bg-transparent p-0">
             <Icons.DashDeleteIcon />
           </button>
         </div>

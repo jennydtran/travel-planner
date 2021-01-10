@@ -67,7 +67,7 @@ function TopNav(props) {
   return (
     <nav className="nav navbar-light fixed-top align-items-center justify-content-between px-2">
       <div className="d-flex align-items-center">
-        <a href='#home'>
+        <a href='#'>
           <button className="bg-transparent p-0 nav-link ">
             <Icons.BackLeftIcon />
           </button>

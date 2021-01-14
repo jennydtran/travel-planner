@@ -144,7 +144,7 @@ function TripEntry(props) {
           <p className="text-muted small pt-1 ml-4 m-0">{`${month} ${year}`}</p>
         </div>
         <div className="d-flex align-items-center">
-          <button className="bg-transparent p-0">
+          <button className="hidden bg-transparent p-0">
             <Icons.DashDeleteIcon />
           </button>
         </div>

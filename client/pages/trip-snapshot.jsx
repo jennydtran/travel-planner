@@ -170,34 +170,34 @@ function BottomNav(props) {
         <p className="mt-2 small">Travelers</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
-        <button className="bg-white rounded-lg p-3">
+        <button className="deactivate bg-white rounded-lg p-3" disabled>
           <Icons.AirplaneIcon />
         </button>
-        <p className="mt-2 small d-flex flex-column align-items-center">Transportation</p>
+        <p className="deactivate mt-2 small d-flex flex-column align-items-center">Transportation</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
-        <button className="bg-white rounded-lg p-3">
+        <button className="deactivate bg-white rounded-lg p-3">
           <Icons.AccommodationIcon />
         </button>
-        <p className="mt-2 small">Accommodation</p>
+        <p className="deactivate mt-2 small">Accommodation</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
-        <button className="bg-white rounded-lg p-3">
+        <button className="deactivate bg-white rounded-lg p-3">
           <Icons.ActivitiesIcon />
         </button>
-        <p className="mt-2 small">Activities</p>
+        <p className="deactivate mt-2 small">Activities</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
-        <button className="bg-white rounded-lg p-3">
+        <button className="deactivate bg-white rounded-lg p-3">
           <Icons.MapIcon />
         </button>
-        <p className="mt-2 small">Places</p>
+        <p className="deactivate mt-2 small">Places</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
-        <button className="bg-white rounded-lg p-3">
+        <button className="deactivate bg-white rounded-lg p-3">
           <Icons.PackingIcon />
         </button>
-        <p className="mt-2 small">Packing List</p>
+        <p className="deactivate mt-2 small">Packing List</p>
       </div>
     </div>
   );

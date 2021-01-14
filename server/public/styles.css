@@ -139,3 +139,14 @@ th {
   color: #ffc75e;
   text-decoration: none;
 }
+
+.deactivate,
+.deactivate:active {
+  transition-duration: none;
+  transform: none;
+  color: #eee;
+}
+
+.hidden {
+  visibility: hidden !important;
+}

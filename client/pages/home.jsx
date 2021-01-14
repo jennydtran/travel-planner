@@ -63,7 +63,7 @@ export default class Home extends React.Component {
 
 function TopNav(props) {
   return (
-    <nav className="nav navbar-light fixed-top align-items-center px-2">
+    <nav className="nav navbar-light static-fixed-top align-items-center px-2">
       <div className="navbar-brand mx-auto">
         <Icons.HomeIcon />
       </div>

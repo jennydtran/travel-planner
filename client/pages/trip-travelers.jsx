@@ -101,12 +101,12 @@ export default class TripTravelers extends React.Component {
     };
     const signout = this.context.handleSignOut;
     return (
-      <>
+      <div className="py-5">
         <TopNav name={name} tripId={this.props.tripId} signout={signout}/>
         <Body onClick={this.handleClickAddTraveler} travelers={travelers}/>
         <Footer />
         {renderModal()}
-      </>
+      </div>
     );
   }
 }

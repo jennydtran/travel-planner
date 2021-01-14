@@ -143,11 +143,11 @@ export default class TripTodo extends React.Component {
     const { handleChange, addTodo, deleteTodo, updateCompleted } = this;
     const signout = this.context.handleSignOut;
     return (
-      <>
+      <div className="py-5">
         <TopNav name={name} tripId={this.props.tripId} signout={signout}/>
         <Body todo={this.state.todos} deleteTodo={deleteTodo} updateCompleted={updateCompleted}/>
         <Footer item={this.state.item} onSubmit={addTodo} onChange={handleChange} />
-      </>
+      </div>
     );
   }
 }
@@ -156,7 +156,7 @@ TripTodo.contextType = AppContext;
 
 function Body(props) {
   return (
-    <main className="d-flex flex-column pt-3">
+    <main className="d-flex flex-column pb-5">
       <div className="container-sm">
         <h2 className="text-center my-3">To-Do Before Trip</h2>
       </div>
@@ -231,9 +231,9 @@ class ToDoItem extends React.Component {
 
 function Footer(props) {
   return (
-    <div className="fixed-bottom bg-white">
+    <div className="fixed-bottom bg-white border-top">
       <ToDoForm item={props.item} onChange={props.onChange} onSubmit={props.onSubmit}/>
-      <footer className="container-xl footer bg-light d-flex justify-content-center align-items-center w-100">
+      <footer className="d-none container-xl footer bg-light d-flex justify-content-center align-items-center w-100">
         <div className="d-flex text-center">
           <button className="icon bg-transparent p-1">
             <Icons.ChevronUp />

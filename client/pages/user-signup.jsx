@@ -78,10 +78,10 @@ export default class UserSignUp extends React.Component {
     return (
       <>
         <Logo />
-        <main className="signup-in-container pb-4 pt-4 d-flex flex-column align-items-center justify-content-between">
-          <div className="align-self-stretch d-flex justify-content-center">
-            <Indicators currentView={currentView}/>
-          </div>
+        <div className="d-flex justify-content-center">
+          <Indicators currentView={currentView} />
+        </div>
+        <main className="signup-in-container pb-4 pt-2 d-flex flex-column align-items-center justify-content-between">
           <div className="align-self-stretch">
             <form id="signup" className="px-3 d-flex flex-column" onSubmit={this.createAccount}>
             {currentView === 'usernameInput'

@@ -3,7 +3,7 @@ import { BackLeftIcon, SignOut, ChevronUp } from './svg';
 
 export function TopNav(props) {
   return (
-    <nav className="nav navbar-light static-fixed-top align-items-center justify-content-between px-2">
+    <nav className="nav navbar-light fixed-top align-items-center justify-content-between px-2">
       <div className="d-flex align-items-center">
         <a href={`#tripsnapshot?tripId=${props.tripId}`}>
           <button className="bg-transparent p-0 nav-link ">
@@ -23,7 +23,7 @@ export function TopNav(props) {
 
 export function Footer(props) {
   return (
-    <footer className="container-xl footer fixed-bottom bg-light d-flex justify-content-center align-items-center w-100">
+    <footer className="d-none container-xl footer fixed-bottom bg-light d-flex justify-content-center align-items-center w-100">
       <div className="d-flex text-center">
         <button className="icon bg-transparent p-1">
           <ChevronUp />

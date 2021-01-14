@@ -49,21 +49,21 @@ export default class Home extends React.Component {
     const { handleClickAdd } = this;
     const signout = this.context.handleSignOut;
     return (
-      <>
+      <div className="py-5">
         <TopNav signout={signout}/>
         <HomeBody username={username} tripEntries={tripEntries} homeState={this.setState}/>
         <BottomNav onClick={handleClickAdd}/>
         { modalView &&
           <TripModal view={modalView} tripEntries={tripEntries} homeState={this.setState}/>
         }
-      </>
+      </div>
     );
   }
 }
 
 function TopNav(props) {
   return (
-    <nav className="nav navbar-light static-fixed-top align-items-center px-2">
+    <nav className="nav navbar-light fixed-top align-items-center px-2">
       <div className="navbar-brand mx-auto">
         <Icons.HomeIcon />
       </div>
@@ -76,7 +76,7 @@ function TopNav(props) {
 
 function HomeBody(props) {
   return (
-    <main className="d-flex flex-column pt-3">
+    <main className="d-flex flex-column pt-3v">
       <div>
         <p className="h6 m-0 mt-3">Hello, <strong>{props.username}</strong></p>
         <p className="m-0 p-0 mt-2 small text-muted"><span>What are we planning today?</span></p>

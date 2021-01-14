@@ -43,7 +43,7 @@ export default class UserSignIn extends React.Component {
     return (
         <>
           <Logo />
-          <main className="signup-in-container pb-4 pt-4 d-flex flex-column align-items-center justify-content-between">
+          <main className="signup-in-container pb-4 pt-2 d-flex flex-column align-items-center justify-content-between">
             <div className="align-self-stretch pt-3">
               <form id="signin" className="px-3 d-flex flex-column" onSubmit={this.handleSubmit}>
                 <div className="form-group">

@@ -54,10 +54,10 @@ export default class TripSummary extends React.Component {
     const todoLength = this.state.tripTodoList.length;
     const signout = this.context.handleSignOut;
     return (
-      <>
+      <div className="pt-5">
         <TopNav signout={signout} name={name} tripId={this.state.currentTrip.tripId}/>
         <Body trip={this.state.currentTrip} numberOfItems={todoLength} itemsCompleted={this.state.currentTrip.itemsCompleted} />
-      </>
+      </div>
     );
   }
 }
@@ -65,7 +65,7 @@ TripSummary.contextType = AppContext;
 
 function TopNav(props) {
   return (
-    <nav className="nav navbar-light static-fixed-top align-items-center justify-content-between px-2">
+    <nav className="nav navbar-light fixed-top align-items-center justify-content-between px-2">
       <div className="d-flex align-items-center">
         <a href='#'>
           <button className="bg-transparent p-0 nav-link ">
@@ -176,25 +176,25 @@ function BottomNav(props) {
         <p className="deactivate mt-2 small d-flex flex-column align-items-center">Transportation</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
-        <button className="deactivate bg-white rounded-lg p-3">
+        <button className="deactivate bg-white rounded-lg p-3" disabled>
           <Icons.AccommodationIcon />
         </button>
         <p className="deactivate mt-2 small">Accommodation</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
-        <button className="deactivate bg-white rounded-lg p-3">
+        <button className="deactivate bg-white rounded-lg p-3" disabled>
           <Icons.ActivitiesIcon />
         </button>
         <p className="deactivate mt-2 small">Activities</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
-        <button className="deactivate bg-white rounded-lg p-3">
+        <button className="deactivate bg-white rounded-lg p-3" disabled>
           <Icons.MapIcon />
         </button>
         <p className="deactivate mt-2 small">Places</p>
       </div>
       <div className="col d-flex flex-column align-items-center">
-        <button className="deactivate bg-white rounded-lg p-3">
+        <button className="deactivate bg-white rounded-lg p-3" disabled>
           <Icons.PackingIcon />
         </button>
         <p className="deactivate mt-2 small">Packing List</p>

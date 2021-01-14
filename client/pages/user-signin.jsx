@@ -7,8 +7,8 @@ export default class UserSignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: ''
+      username: 'lovetotravel_demo',
+      password: 'password1'
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,11 +48,11 @@ export default class UserSignIn extends React.Component {
               <form id="signin" className="px-3 d-flex flex-column" onSubmit={this.handleSubmit}>
                 <div className="form-group">
                   <label className="dark-teal mb-3" htmlFor="username">Username</label>
-                  <input className="form-control form-control-lg mb-1" type="text" id="username" name="username" value={this.state.username} onChange={this.handleChange} required />
+                  <input className="form-control form-control-lg mb-1" type="text" id="username" name="username" defaultValue="lovetotravel_demo" onChange={this.handleChange} required disabled/>
                 </div>
                 <div className="form-group">
                   <label className="dark-teal mb-3" htmlFor="password">Password</label>
-                <input className="form-control form-control-lg mb-1" type="password" id="password" name="password" value={this.state.password} onChange={this.handleChange} required />
+                <input className="form-control form-control-lg mb-1" type="password" id="password" name="password" defaultValue="password1" onChange={this.handleChange} required disabled/>
                 </div>
                 <button className="w-100 rounded-lg align-self-center mb-3 mt-2">Login</button>
               </form>

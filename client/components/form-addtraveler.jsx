@@ -36,13 +36,13 @@ export default class AddTraveler extends React.Component {
     return (
       <div className="overlay d-flex justify-content-center align-items-center position-fixed w-100 h-100" onClick={this.props.onClick}>
         <div className="form-container d-flex flex-column justify-content-center bg-white rounded-lg py-4 px-4" onClick={this.stopPropagation}>
-          <h2 className="text-center my-3">Add a traveler</h2>
-          <form id="travelerForm" className="f-container d-flex flex-column" onSubmit={this.handleSubmit}>
+          <form id="travelerForm" className="modal-guts f-container d-flex flex-column" onSubmit={this.handleSubmit}>
+            <h2 className="text-center my-3">Add a traveler</h2>
             <div className="f form-group">
               <label htmlFor="travelerName">Name</label>
               <input className="modal form-control" type="text" id="travelerName" name="name" onChange={this.handleChange} value={this.state.name} required />
             </div>
-            <div className="f form-group d-flex justify-content-between">
+            <div className="f form-group d-flex flex-wrap justify-content-between">
               <label className="m-0 mr-3">Going</label>
               <div className="form-check form-check-inline">
                 <label className="form-check-label mr-1 text-grey" htmlFor="going-yes">Yes</label>

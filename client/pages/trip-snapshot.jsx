@@ -102,7 +102,7 @@ function Summary(props) {
   const returnDate = dateReformat(props.trip.returnDate).format1;
 
   return (
-    <div className="d-flex flex-column rounded-lg bg-white w-100 border py-3 px-4">
+    <div className="s-container d-flex flex-column rounded-lg bg-white border py-3 px-4 mb-3">
       <div className="row row-cols-2">
         <div className="col"><p className="font-weight-bold mb-2">Destination</p></div>
         <div className="col"><p className="light-teal mb-2">{props.trip.destination}</p></div>
@@ -128,7 +128,7 @@ function ToDoReminder(props) {
   let itemsCompleted = props.itemsCompleted;
   itemsCompleted = Number.parseInt(itemsCompleted, 10);
   return (
-    <div className="bg-white rounded-lg w-100 border mt-3 py-3 px-4">
+    <div className="s-container bg-white rounded-lg border my-3 py-3 px-4">
       <div className="row justify-content-between w-100 m-0">
         <div className="col-9 p-0">
           <p className="font-weight-bold mb-2">Before leaving on your trip:</p>
@@ -162,38 +162,38 @@ function ToDoReminder(props) {
 
 function BottomNav(props) {
   return (
-    <div className="row rol-cols-3 mt-3">
-      <div className="col d-flex flex-column align-items-center">
+    <div className="row snapshot-icons my-3 justifty-content-center">
+      <div className="col-4 d-flex flex-column align-items-center mb-2">
         <a href={`#travelers?tripId=${props.trip.tripId}`}><button className="bg-white rounded-lg p-3">
           <Icons.TravelerIcon />
         </button></a>
         <p className="mt-2 small">Travelers</p>
       </div>
-      <div className="col d-flex flex-column align-items-center">
+      <div className="col-4 d-flex flex-column align-items-center mb-2">
         <button className="deactivate bg-white rounded-lg p-3" disabled>
           <Icons.AirplaneIcon />
         </button>
         <p className="deactivate mt-2 small d-flex flex-column align-items-center">Transportation</p>
       </div>
-      <div className="col d-flex flex-column align-items-center">
+      <div className="col-4 d-flex flex-column align-items-center mb-2">
         <button className="deactivate bg-white rounded-lg p-3" disabled>
           <Icons.AccommodationIcon />
         </button>
         <p className="deactivate mt-2 small">Accommodation</p>
       </div>
-      <div className="col d-flex flex-column align-items-center">
+      <div className="col-4 d-flex flex-column align-items-center mb-2">
         <button className="deactivate bg-white rounded-lg p-3" disabled>
           <Icons.ActivitiesIcon />
         </button>
         <p className="deactivate mt-2 small">Activities</p>
       </div>
-      <div className="col d-flex flex-column align-items-center">
+      <div className="col-4 d-flex flex-column align-items-center mb-2">
         <button className="deactivate bg-white rounded-lg p-3" disabled>
           <Icons.MapIcon />
         </button>
         <p className="deactivate mt-2 small">Places</p>
       </div>
-      <div className="col d-flex flex-column align-items-center">
+      <div className="col-4 d-flex flex-column align-items-center mb-2">
         <button className="deactivate bg-white rounded-lg p-3" disabled>
           <Icons.PackingIcon />
         </button>

@@ -90,6 +90,16 @@ th {
   transition: 0.5s;
 }
 
+.form-container {
+  max-height: 95vh;
+}
+
+.modal-guts {
+  max-height: 90vh;
+  top: 0;
+  overflow-y: auto;
+}
+
 .form-control {
   border-color: #6bdcce;
 }
@@ -165,6 +175,12 @@ th {
 }
 
 @media (min-width: 550px) {
+  .nav,
+  .footer {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+
   form {
     width: 550px;
   }
@@ -178,15 +194,28 @@ th {
   .f.form-control {
     width: 370px;
   }
+
+  .s-container {
+    width: 520px;
+  }
+
+  .row.snapshot-icons {
+    width: 450px;
+  }
 }
 
 @media (max-width: 550px) {
-  form {
+  form,
+  .s-container {
     width: 100%;
   }
 
   .form-container {
     width: 80%;
+  }
+
+  .row.snapshot-icons {
+    width: 90%;
   }
 }
 
@@ -212,11 +241,13 @@ th {
 @media (max-width: 414px) {
   html,
   body {
-    font-size: 12px;
+    font-size: 13px;
   }
 
-  form {
+  form,
+  .flex-item {
     width: 100%;
+    margin: 0;
   }
 
   .form-container {
@@ -227,10 +258,10 @@ th {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 1rem;
   }
 
-  .flex-item {
-    width: 100%;
-    margin: 0;
+  .row.snapshot-icons {
+    width: 90%;
   }
 }

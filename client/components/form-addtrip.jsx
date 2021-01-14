@@ -88,10 +88,10 @@ export default class TripModal extends React.Component {
       return null;
     } else {
       return (
-        <div className="overlay d-flex justify-content-center align-items-center position-fixed w-100 h-100" onClick={this.handleClickOff}>
-          <div className="form-container d-flex flex-column justify-content-center bg-white rounded-lg py-4 px-4" onClick={this.stopPropagation}>
-            <h2 className="text-center my-3">Add a trip</h2>
-            <form id="tripForm" className="f-container d-flex flex-column" onSubmit={this.handleSubmit}>
+        <div className="overlay d-flex align-items-center position-fixed w-100 h-100" onClick={this.handleClickOff}>
+          <div className="form-container d-flex mx-auto flex-column justify-content-center bg-white rounded-lg py-4 px-4" onClick={this.stopPropagation}>
+            <form id="tripForm" className="modal-guts f-container d-flex flex-column" onSubmit={this.handleSubmit}>
+              <h2 className="text-center my-3">Add a trip</h2>
               <div className="f form-group">
                 <label htmlFor="tripName">Name of trip</label>
                 <input className="f form-control" type="text" id="tripName" name="tripName" onChange={this.handleChange} value={this.state.tripName} required />

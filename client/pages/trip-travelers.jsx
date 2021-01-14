@@ -116,7 +116,7 @@ function Body(props) {
   return (
     <main className="d-flex flex-column pt-3">
       <div className="container-sm d-flex justify-content-between align-items-center">
-        <button className="bg-transparent p-0">
+        <button className="hidden bg-transparent p-0">
           <Icons.EditPencil />
         </button>
         <h2 className="text-center my-3">Travelers</h2>

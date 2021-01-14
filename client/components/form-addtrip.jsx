@@ -89,24 +89,24 @@ export default class TripModal extends React.Component {
     } else {
       return (
         <div className="overlay d-flex justify-content-center align-items-center position-fixed w-100 h-100" onClick={this.handleClickOff}>
-          <div className="d-flex flex-column justify-content-center w-75 bg-white rounded-lg py-4 px-4" onClick={this.stopPropagation}>
+          <div className="form-container d-flex flex-column justify-content-center bg-white rounded-lg py-4 px-4" onClick={this.stopPropagation}>
             <h2 className="text-center my-3">Add a trip</h2>
-            <form id="tripForm" className="d-flex flex-column" onSubmit={this.handleSubmit}>
-              <div className="form-group">
+            <form id="tripForm" className="f-container d-flex flex-column" onSubmit={this.handleSubmit}>
+              <div className="f form-group">
                 <label htmlFor="tripName">Name of trip</label>
-                <input className="form-control" type="text" id="tripName" name="tripName" onChange={this.handleChange} value={this.state.tripName} required />
+                <input className="f form-control" type="text" id="tripName" name="tripName" onChange={this.handleChange} value={this.state.tripName} required />
               </div>
-              <div className="form-group">
+              <div className="f form-group">
                 <label htmlFor="tripDestination">Destination</label>
-                <input className="form-control" type="text" id="tripDestination" name="tripDestination" onChange={this.handleChange} value={this.state.tripDestination} required />
+                <input className="f form-control" type="text" id="tripDestination" name="tripDestination" onChange={this.handleChange} value={this.state.tripDestination} required />
               </div>
-              <div className="form-group">
+              <div className="f form-group">
                 <label htmlFor="depatureDate">Depature Date</label>
-                <input className="form-control" type="date" id="departureDate" name="departureDate" min={maxDate} onChange={this.handleChange} value={this.state.departureDate} required />
+                <input className="f form-control" type="date" id="departureDate" name="departureDate" min={maxDate} onChange={this.handleChange} value={this.state.departureDate} required />
               </div>
-              <div className="form-group">
+              <div className="f form-group">
                 <label htmlFor="returnDate">Return Date</label>
-                <input className="form-control" disabled={disabled} type="date" id="returnDate" name="returnDate" min={returnMaxDate} onChange={this.handleChange} value={this.state.returnDate} required />
+                <input className="f form-control" disabled={disabled} type="date" id="returnDate" name="returnDate" min={returnMaxDate} onChange={this.handleChange} value={this.state.returnDate} required />
               </div>
               <button className="rounded-lg align-self-center my-3" type="submit" value="Submit">Add this trip</button>
             </form>

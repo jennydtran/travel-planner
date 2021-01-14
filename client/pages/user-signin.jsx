@@ -41,11 +41,11 @@ export default class UserSignIn extends React.Component {
     if (this.context.user) return <Redirect to="" />;
 
     return (
-        <>
+      <>
           <Logo />
           <main className="signup-in-container pb-4 pt-2 d-flex flex-column align-items-center justify-content-between">
-            <div className="align-self-stretch pt-3">
-              <form id="signin" className="px-3 d-flex flex-column" onSubmit={this.handleSubmit}>
+            <div className="d-flex justify-content-center align-self-stretch pt-3">
+            <form id="signin" className="align-self-center px-3 d-flex flex-column" onSubmit={this.handleSubmit}>
                 <div className="form-group">
                   <label className="dark-teal mb-3" htmlFor="username">Username</label>
                   <input className="form-control form-control-lg mb-1" type="text" id="username" name="username" defaultValue="lovetotravel_demo" onChange={this.handleChange} required disabled/>
@@ -54,7 +54,7 @@ export default class UserSignIn extends React.Component {
                   <label className="dark-teal mb-3" htmlFor="password">Password</label>
                 <input className="form-control form-control-lg mb-1" type="password" id="password" name="password" defaultValue="password1" onChange={this.handleChange} required disabled/>
                 </div>
-                <button className="w-100 rounded-lg align-self-center mb-3 mt-2">Login</button>
+                <button className="w-100 rounded-lg align-self-center mb-3 mt-5">Login</button>
               </form>
             </div>
             <div className="text-center align-self-stretch">

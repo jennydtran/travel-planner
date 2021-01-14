@@ -35,14 +35,14 @@ export default class AddTraveler extends React.Component {
   render() {
     return (
       <div className="overlay d-flex justify-content-center align-items-center position-fixed w-100 h-100" onClick={this.props.onClick}>
-        <div className="d-flex flex-column justify-content-center w-75 bg-white rounded-lg py-4 px-4" onClick={this.stopPropagation}>
+        <div className="form-container d-flex flex-column justify-content-center bg-white rounded-lg py-4 px-4" onClick={this.stopPropagation}>
           <h2 className="text-center my-3">Add a traveler</h2>
-          <form id="travelerForm" className="d-flex flex-column" onSubmit={this.handleSubmit}>
-            <div className="form-group">
+          <form id="travelerForm" className="f-container d-flex flex-column" onSubmit={this.handleSubmit}>
+            <div className="f form-group">
               <label htmlFor="travelerName">Name</label>
-              <input className="form-control" type="text" id="travelerName" name="name" onChange={this.handleChange} value={this.state.name} required />
+              <input className="modal form-control" type="text" id="travelerName" name="name" onChange={this.handleChange} value={this.state.name} required />
             </div>
-            <div className="form-group d-flex justify-content-between">
+            <div className="f form-group d-flex justify-content-between">
               <label className="m-0 mr-3">Going</label>
               <div className="form-check form-check-inline">
                 <label className="form-check-label mr-1 text-grey" htmlFor="going-yes">Yes</label>
@@ -57,8 +57,8 @@ export default class AddTraveler extends React.Component {
                 <input className="form-check-input m-0" type="radio" name="going" id="going-maybe" value="Maybe" onChange={this.handleChange} required/>
               </div>
             </div>
-            <div className="form-group">
-              <textarea className="form-control" name="notes" id="travelerNotes" placeholder="Notes:" rows="5" onChange={this.handleChange} value={this.state.notes}></textarea>
+            <div className="f form-group">
+              <textarea className="f form-control" name="notes" id="travelerNotes" placeholder="Notes:" rows="5" onChange={this.handleChange} value={this.state.notes}></textarea>
             </div>
             <button className="rounded-lg align-self-center my-3" type="submit" value="Submit">Add traveler</button>
           </form>

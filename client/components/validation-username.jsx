@@ -31,7 +31,7 @@ export default class InputUsername extends React.Component {
       <>
         <div className="form-group">
           <label className="dark-teal mb-3" htmlFor="username">Username</label>
-          <input className="form-control form-control-lg mb-2" type="text" id="username" name="username" value={this.props.username} onChange={this.handleChange} required />
+          <input className="form-control form-control-lg mb-2" type="text" id="username" name="username" value={this.props.username} onChange={this.handleChange} autoFocus required />
           <p className="text-center text-danger small">{this.props.error}</p>
         </div>
         <button className="w-100 rounded-lg align-self-center my-3 mt-5" onClick={this.props.clickNext}>Next</button>

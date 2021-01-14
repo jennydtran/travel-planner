@@ -39,6 +39,7 @@ export default class UserSignUp extends React.Component {
   clickNext(event) {
     if (this.state.username === '' || this.state.usernameError !== '') {
       event.preventDefault();
+      this.setState({ usernameError: 'A username is required.' });
       return;
     }
     this.setState({ currentView: 'passwordInput' });

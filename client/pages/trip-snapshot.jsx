@@ -65,7 +65,7 @@ TripSummary.contextType = AppContext;
 
 function TopNav(props) {
   return (
-    <nav className="nav navbar-light fixed-top align-items-center justify-content-between px-2">
+    <nav className="nav navbar-light static-fixed-top align-items-center justify-content-between px-2">
       <div className="d-flex align-items-center">
         <a href='#'>
           <button className="bg-transparent p-0 nav-link ">

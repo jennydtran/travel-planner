@@ -77,7 +77,7 @@ export default class UserSignUp extends React.Component {
     return (
       <>
         <Logo />
-        <main className="fixed-bottom signup-in-container pb-4 pt-5 d-flex flex-column align-items-center justify-content-between">
+        <main className="signup-in-container pb-4 pt-4 d-flex flex-column align-items-center justify-content-between">
           <div className="align-self-stretch d-flex justify-content-center">
             <Indicators currentView={currentView}/>
           </div>

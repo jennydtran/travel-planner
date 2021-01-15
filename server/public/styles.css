@@ -6,6 +6,9 @@ body {
 }
 
 #root {
+  height: 100%;
+  min-width: 320px;
+  max-width: 750px;
   margin: 0 auto;
   background-color: #fff;
 }
@@ -81,9 +84,20 @@ th {
 
 .overlay {
   top: 0;
+  left: 0;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.7);
   transition: 0.5s;
+}
+
+.form-container {
+  max-height: 95vh;
+}
+
+.modal-guts {
+  max-height: 90vh;
+  top: 0;
+  overflow-y: auto;
 }
 
 .form-control {
@@ -132,7 +146,7 @@ th {
 }
 
 .signup-in-container {
-  height: 60%;
+  height: 50%;
 }
 
 .signin-up {
@@ -158,4 +172,96 @@ th {
 
 .d-none {
   display: none !important;
+}
+
+@media (min-width: 550px) {
+  .nav,
+  .footer {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+
+  form {
+    width: 550px;
+  }
+
+  .form-container {
+    width: 420px;
+  }
+
+  .f-container,
+  .f.form-group,
+  .f.form-control {
+    width: 370px;
+  }
+
+  .s-container {
+    width: 520px;
+  }
+
+  .row.snapshot-icons {
+    width: 450px;
+  }
+}
+
+@media (max-width: 550px) {
+  form,
+  .s-container {
+    width: 100%;
+  }
+
+  .form-container {
+    width: 80%;
+  }
+
+  .row.snapshot-icons {
+    width: 90%;
+  }
+}
+
+@media (min-width: 414px) {
+  .home-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .flex-item {
+    width: 50%;
+    margin: 0.75rem 0.75rem 0 1rem;
+    flex: 1;
+  }
+
+  .trip-entry {
+    height: 100%;
+  }
+}
+
+@media (max-width: 414px) {
+  html,
+  body {
+    font-size: 13px;
+  }
+
+  form,
+  .flex-item {
+    width: 100%;
+    margin: 0;
+  }
+
+  .form-container {
+    width: 80%;
+  }
+
+  .home-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .row.snapshot-icons {
+    width: 90%;
+  }
 }

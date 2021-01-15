@@ -81,8 +81,8 @@ export default class UserSignUp extends React.Component {
         <div className="d-flex justify-content-center">
           <Indicators currentView={currentView} />
         </div>
-        <main className="signup-in-container pb-4 pt-2 d-flex flex-column align-items-center justify-content-between">
-          <div className="align-self-stretch">
+        <main className="signup-in-container pb-4 pt-2 d-flex flex-column align-items-center justify-content-around">
+          <div className="d-flex justify-content-center align-self-stretch">
             <form id="signup" className="px-3 d-flex flex-column" onSubmit={this.createAccount}>
             {currentView === 'usernameInput'
               ? <InputUsername username={username} error={usernameError} handleUsername={this.handleUsername} clickNext={this.clickNext}/>

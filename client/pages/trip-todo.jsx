@@ -168,8 +168,8 @@ function Body(props) {
 
 function ToDoList(props) {
   return (
-    <div>
-      <ul className="list-unstyled my-1 px-3">
+    <div className="d-flex justify-content-center">
+      <ul className="s-container list-unstyled my-1 px-3">
         {
           props.todo.map(todo => {
             return (
@@ -231,7 +231,7 @@ class ToDoItem extends React.Component {
 
 function Footer(props) {
   return (
-    <div className="fixed-bottom bg-white border-top">
+    <div className="fixed-bottom bg-white border-top d-flex justify-content-center">
       <ToDoForm item={props.item} onChange={props.onChange} onSubmit={props.onSubmit}/>
       <footer className="d-none container-xl footer bg-light d-flex justify-content-center align-items-center w-100">
         <div className="d-flex text-center">

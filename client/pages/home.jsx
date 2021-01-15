@@ -84,7 +84,7 @@ function HomeBody(props) {
       </div>
 
       {props.tripEntries.length !== 0
-        ? <div className="container-sm">
+        ? <div className="">
             <h1 className="text-center light-teal">Your Trips</h1>
             <TripEntries tripEntries={props.tripEntries}/>
           </div>
@@ -105,7 +105,7 @@ function HomeBody(props) {
 
 function TripEntries(props) {
   return (
-    <ul className="list-unstyled my-4">
+    <ul className="home-list list-unstyled my-4">
       {
         props.tripEntries.map(trip => {
           return (
@@ -132,7 +132,7 @@ function TripEntry(props) {
   const year = dateConvert.getFullYear();
 
   return (
-    <li>
+    <li className="flex-item">
       <div className="trip-entry d-flex border rounded-lg shadow-sm py-4 px-4 mb-2">
         <a href={`#tripsnapshot?tripId=${tripId}`} className="d-flex align-items-center">
           <div className="shadow-sm rounded-lg p-2 border">

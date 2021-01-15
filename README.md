@@ -4,7 +4,7 @@
 Travel Planner is a full stack, CRUD application solo project built with ReactJS. This application is for travel lovers who would like some organization when it comes to planning their trips.
 
 ## Live Demo
-Try the live demo here: https://travel-planner-lfz.herokuapp.com/#signin
+Try the live demo here: https://travel-planner-lfz.herokuapp.com/
 
 ## Technology
 * React.js
@@ -27,8 +27,8 @@ Try the live demo here: https://travel-planner-lfz.herokuapp.com/#signin
 * User can view the list of travelers
 
 ## Preview
-<img src="/server/public/images/Login-screen.png" width="550">
-<img src="/server/public/images/Login-screen.png" width="550">
+<img src="server/public/images/preview1.png" width="550">
+<img src="server/public/images/preview2.png" width="550">
 
 ## Planned Additions
 This application has MANY features to be added. As I am learning more everyday, the UI/UX will be improved on. I also want to add a page where the user is able to see what is planned for the trip based on the day. For example, "On day 'x', this activity is planned or hotel reservation is planned, etc.

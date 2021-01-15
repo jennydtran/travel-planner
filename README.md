@@ -36,7 +36,7 @@ This application has MANY features to be added. As I am learning more everyday, 
 * User can delete a trip
 * User can create a packing list to check items off
 * User can add accommodation information for a trip
-* User cna add transportation information for a trip
+* User can add transportation information for a trip
 * User can add activities to do
 * User can add places to see
 * User can make a souvenir list
